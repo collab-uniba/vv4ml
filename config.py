@@ -16,5 +16,5 @@ class InputField(BaseModel):
     def convert_range(cls, v: list[float] | tuple[float, float]) -> tuple[float, float]:
         """Convert list to tuple for range."""
         if isinstance(v, list) and len(v) == 2:
-            return (v[0], v[1])
+            return v[0], v[1]
         return v  # type: ignore[return-value]
