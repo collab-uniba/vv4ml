@@ -1,4 +1,4 @@
-"""Latin Hypercube Sampling for BoneStrengthML verification."""
+"""Latin Hypercube Sampling"""
 
 from __future__ import annotations
 
