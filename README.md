@@ -2,7 +2,7 @@
 
 ![py_ver](https://img.shields.io/badge/py__ver-3.14.4-blue)
 ![license](https://img.shields.io/badge/license-TBA-lightgrey)
-[![COLLAB TBA](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/collab-uniba/vv4ml/refs/heads/feat/latin-hypercube/docs/badge/collab.json)](https://collab.di.uniba.it/)
+[<img src="https://i0.wp.com/collab.di.uniba.it/wp-content/uploads/2023/08/Logo-Collab-graphic-only-e1690967081844.png?fit=85%2C85&ssl=1" alt="COLLAB logo" height="20"> ![COLLAB TBA](https://img.shields.io/badge/COLLAB-TBA-lightgrey)](https://collab.di.uniba.it/)
 
 `vv4ml` fornisce strumenti per la verifica e la validazione di modelli di
 machine learning.
