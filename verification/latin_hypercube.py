@@ -9,7 +9,7 @@ import pandas as pd
 from numpy.typing import NDArray
 from sklearn.metrics import pairwise_distances_chunked as pdc
 
-from bonestrength_ml.config import InputField
+from config import InputField
 
 
 def _LHbasic(
