@@ -1,5 +1,6 @@
 from typing import Literal
-from pydantic import BaseModel, field_validator,
+from pydantic import BaseModel, field_validator
+
 
 class InputField(BaseModel):
     """Input field specification."""
