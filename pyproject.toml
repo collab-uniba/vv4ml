@@ -9,7 +9,7 @@ description = "A solid verification and validation python library for ml models"
 readme = "README.md"
 classifiers = [
     "Programming Language :: Python :: 3.14",
-    "Operating System :: OS Indipendent",
+    "Operating System :: OS Independent",
 ]
 dependencies = [
     "numpy>=2.4.4",
