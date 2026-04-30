@@ -381,7 +381,7 @@ wheels = [
 
 [[package]]
 name = "vv4ml"
-version = "0.1.1a1"
+version = "0.1.2a1"
 source = { virtual = "." }
 dependencies = [
     { name = "numpy" },
