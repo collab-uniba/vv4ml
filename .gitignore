@@ -1,0 +1,8 @@
+# IDEs and editors
+.idea/
+__pycache__/
+verification/__pycache__/
+.codex
+
+# uv related
+vv4ml.egg-info/
