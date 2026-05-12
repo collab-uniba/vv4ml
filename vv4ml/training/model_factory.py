@@ -44,10 +44,7 @@ KERNEL_REGISTRY: dict[str, Any] = {
 }
 
 # Reverse map: id(kernel_object) → name, for identity-based lookup after search
-_KERNEL_NAME_BY_ID: dict[int, str] = {
-    id(v): k for k, v in KERNEL_REGISTRY.items()
-}
-
+_KERNEL_NAME_BY_ID: dict[int, str] = {id(v): k for k, v in KERNEL_REGISTRY.items()}
 
 
 def create_model(model_config: ModelConfig, random_state: int = 42) -> BaseEstimator:
@@ -180,18 +177,18 @@ def recreate_model(
 # ---------------------------------------------------------------------------
 
 
-def _create_gpr_pipeline(
-    model_config: ModelConfig, random_state: int
-) -> Pipeline:
+def _create_gpr_pipeline(model_config: ModelConfig, random_state: int) -> Pipeline:
     """Build a Pipeline([scaler, GPR]) from config."""
     fixed_params = _extract_fixed_params(model_config.hyperparameters)
 
     gpr_params = {**fixed_params, "random_state": random_state}
 
-    return Pipeline([
-        ("scaler", StandardScaler()),
-        ("gpr", GaussianProcessRegressor(**gpr_params)),
-    ])
+    return Pipeline(
+        [
+            ("scaler", StandardScaler()),
+            ("gpr", GaussianProcessRegressor(**gpr_params)),
+        ]
+    )
 
 
 def _prepare_gpr_param_grid(model_config: ModelConfig) -> dict[str, list[Any]]:
@@ -220,9 +217,7 @@ def _prepare_gpr_param_grid(model_config: ModelConfig) -> dict[str, list[Any]]:
     return param_grid
 
 
-def _recreate_gpr_pipeline(
-    best_params: dict[str, Any], random_state: int
-) -> Pipeline:
+def _recreate_gpr_pipeline(best_params: dict[str, Any], random_state: int) -> Pipeline:
     """Reconstruct a GPR Pipeline from normalized best_params."""
     gpr_params: dict[str, Any] = {"random_state": random_state}
 
@@ -239,10 +234,12 @@ def _recreate_gpr_pipeline(
             # Coerce numeric strings from MLflow
             gpr_params[key] = _coerce_single_value(value)
 
-    return Pipeline([
-        ("scaler", StandardScaler()),
-        ("gpr", GaussianProcessRegressor(**gpr_params)),
-    ])
+    return Pipeline(
+        [
+            ("scaler", StandardScaler()),
+            ("gpr", GaussianProcessRegressor(**gpr_params)),
+        ]
+    )
 
 
 def _coerce_single_value(value: Any) -> Any:
@@ -279,10 +276,11 @@ def _coerce_param_types(model_class: type, params: dict[str, Any]) -> dict[str, 
             ann = param.annotation
             try:
                 if ann is bool or (
-                    hasattr(ann, "__origin__")
-                    and bool in getattr(ann, "__args__", ())
+                    hasattr(ann, "__origin__") and bool in getattr(ann, "__args__", ())
                 ):
-                    coerced[k] = v.lower() in ("true", "1", "yes") if isinstance(v, str) else v
+                    coerced[k] = (
+                        v.lower() in ("true", "1", "yes") if isinstance(v, str) else v
+                    )
                 elif ann is int:
                     coerced[k] = int(v)
                 elif ann is float:
@@ -290,7 +288,7 @@ def _coerce_param_types(model_class: type, params: dict[str, Any]) -> dict[str, 
                 else:
                     coerced[k] = v
                 continue
-            except (ValueError, TypeError):
+            except ValueError, TypeError:
                 pass
 
         # Fallback: coerce heuristically
