@@ -5,8 +5,8 @@ from dataclasses import dataclass
 import numpy as np
 import pandas as pd
 
-from bonestrength_ml.training.metrics import mean_relative_error
-from bonestrength_ml.training.model_factory import recreate_model
+from training.metrics import mean_relative_error
+from training.model_factory import recreate_model
 
 
 @dataclass
