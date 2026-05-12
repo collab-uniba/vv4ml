@@ -4,7 +4,6 @@ from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
-
 from training.metrics import mean_relative_error
 from training.model_factory import recreate_model
 
@@ -23,9 +22,9 @@ class ConvergenceResult:
 
 
 def run_convergence_test(
-    X_train: pd.DataFrame,
+    x_train: pd.DataFrame,
     y_train: pd.Series,
-    X_eval: pd.DataFrame,
+    x_eval: pd.DataFrame,
     ref_predictions: np.ndarray,
     model_type: str,
     best_params: dict,
@@ -46,9 +45,9 @@ def run_convergence_test(
     first subset size at which this sustained convergence begins.
 
     Args:
-        X_train: Training features.
+        x_train: Training features.
         y_train: Training target values (single output).
-        X_eval: Evaluation features (typically the test set).
+        x_eval: Evaluation features (typically the test set).
         ref_predictions: Reference model predictions on X_eval.
         model_type: Model type key in MODEL_REGISTRY.
         best_params: Best hyperparameters from the reference model.
@@ -65,8 +64,8 @@ def run_convergence_test(
 
     for k in n_rows:
         # Randomly sample k rows from the training set
-        indices = rng.choice(len(X_train), size=min(k, len(X_train)), replace=False)
-        X_subset = X_train.iloc[indices]
+        indices = rng.choice(len(x_train), size=min(k, len(x_train)), replace=False)
+        X_subset = x_train.iloc[indices]
         y_subset = y_train.iloc[indices]
 
         # Instantiate fresh model with same hyperparameters
@@ -74,7 +73,7 @@ def run_convergence_test(
         fresh_model.fit(X_subset, y_subset)
 
         # Predict on evaluation set and compute MRE
-        subset_predictions = fresh_model.predict(X_eval)
+        subset_predictions = fresh_model.predict(x_eval)
         mre = mean_relative_error(subset_predictions, ref_predictions)
         errors.append(mre)
 
