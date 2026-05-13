@@ -227,8 +227,8 @@ class ModelDevelopmentConfig(BaseModel):
 # =============================================================================
 
 # TODO: Fit class for generic configs starting with the name BoneStrengthMLConfig --> Config or MLConfig
-class BoneStrengthMLConfig(BaseModel):
-    """Root configuration for BoneStrengthML pipeline."""
+class Config(BaseModel):
+    """Root configuration for ML pipeline."""
 
     dataset: DatasetConfig
     gate_thresholds: GateThresholds
@@ -236,14 +236,14 @@ class BoneStrengthMLConfig(BaseModel):
     model_development: ModelDevelopmentConfig
 
     @classmethod
-    def from_yaml(cls, path: str | Path) -> "BoneStrengthMLConfig":
+    def from_yaml(cls, path: str | Path) -> "Config":
         """Load and validate configuration from a YAML file.
 
         Args:
             path: Path to the YAML configuration file.
 
         Returns:
-            Validated BoneStrengthMLConfig instance.
+            Validated Config instance.
 
         Raises:
             yaml.YAMLError: If the YAML is invalid.
@@ -251,7 +251,7 @@ class BoneStrengthMLConfig(BaseModel):
         """
         path = Path(path)
         raw_yaml = path.read_text(encoding="utf-8")
-        return parse_yaml_raw_as(BoneStrengthMLConfig, raw_yaml)
+        return parse_yaml_raw_as(Config, raw_yaml)
         # with path.open() as f:
         #     data = yaml.safe_load(f)
         # return cls.model_validate(data)
@@ -262,8 +262,8 @@ class BoneStrengthMLConfig(BaseModel):
 PROJECT_ROOT = Path(__file__).parent.parent
 
 
-def load_config(path: str | Path = "config/BoneStrengthML.yml") -> BoneStrengthMLConfig:
-    """Load and validate the BoneStrengthML configuration.
+def load_config(path: str | Path = "config/BoneStrengthML.yml") -> Config:
+    """Load and validate the ML configuration.
 
     Args:
         path: Path to the configuration file. Defaults to config/BoneStrengthML.yml.
