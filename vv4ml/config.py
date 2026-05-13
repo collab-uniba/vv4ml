@@ -8,6 +8,8 @@ from typing import Literal
 
 import yaml
 from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic_yaml import parse_yaml_raw_as
+
 
 # =============================================================================
 # Dataset Configuration Models
@@ -224,7 +226,7 @@ class ModelDevelopmentConfig(BaseModel):
 # Root Configuration Model
 # =============================================================================
 
-
+# TODO: Fit class for generic configs starting with the name BoneStrengthMLConfig --> Config or MLConfig
 class BoneStrengthMLConfig(BaseModel):
     """Root configuration for BoneStrengthML pipeline."""
 
@@ -248,12 +250,15 @@ class BoneStrengthMLConfig(BaseModel):
             pydantic.ValidationError: If the configuration doesn't match the schema.
         """
         path = Path(path)
-        with path.open() as f:
-            data = yaml.safe_load(f)
-        return cls.model_validate(data)
+        raw_yaml = path.read_text(encoding="utf-8")
+        return parse_yaml_raw_as(BoneStrengthMLConfig, raw_yaml)
+        # with path.open() as f:
+        #     data = yaml.safe_load(f)
+        # return cls.model_validate(data)
 
 
-# Project root directory (parent of bonestrength_ml package)
+# TODO: check this in final stage of development
+# Project root directory (parent of vv4ml package)
 PROJECT_ROOT = Path(__file__).parent.parent
 
 
