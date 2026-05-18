@@ -87,7 +87,7 @@ MetricType = Literal[
     "StandardDeviation",
     "RMSE",
     "PercentageRMSE",
-    "MaxStandardDeviation"
+    "MaxStandardDeviation",
 ]
 
 
@@ -226,6 +226,7 @@ class ModelDevelopmentConfig(BaseModel):
 # Root Configuration Model
 # =============================================================================
 
+
 # TODO: Fit class for generic configs starting with the name BoneStrengthMLConfig --> Config or MLConfig
 class Config(BaseModel):
     """Root configuration for ML pipeline."""
@@ -246,7 +247,6 @@ class Config(BaseModel):
             Validated Config instance.
 
         Raises:
-            yaml.YAMLError: If the YAML is invalid.
             pydantic.ValidationError: If the configuration doesn't match the schema.
         """
         path = Path(path)
@@ -255,11 +255,6 @@ class Config(BaseModel):
         # with path.open() as f:
         #     data = yaml.safe_load(f)
         # return cls.model_validate(data)
-
-
-# TODO: check this in final stage of development
-# Project root directory (parent of vv4ml package)
-PROJECT_ROOT = Path(__file__).parent.parent
 
 
 # TODO: manage relative paths, multiple YAMLs and wrong following schema YAMLs
