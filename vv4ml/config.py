@@ -262,17 +262,23 @@ class Config(BaseModel):
 PROJECT_ROOT = Path(__file__).parent.parent
 
 
-def load_config(path: str | Path = "config/BoneStrengthML.yml") -> Config:
+# TODO: manage relative paths, multiple YAMLs and wrong following schema YAMLs
+def load_config(config_path: str | Path) -> Config:
     """Load and validate the ML configuration.
 
     Args:
-        path: Path to the configuration file. Defaults to config/BoneStrengthML.yml.
-              Relative paths are resolved from the project root directory.
+        config_path: Path to the configuration file.
+            Relative paths are resolved with support to expanded ~ and ~user construct.
 
     Returns:
         Validated configuration object.
     """
-    path = Path(path)
-    if not path.is_absolute():
-        path = PROJECT_ROOT / path
-    return BoneStrengthMLConfig.from_yaml(path)
+    if not isinstance(config_path, (str, Path)):
+        raise TypeError("config_path must be str or Path")
+
+    config_path = Path(config_path).expanduser().resolve()
+
+    if config_path.suffix in (".yaml", ".yml"):
+        return Config.from_yaml(config_path)
+    else:
+        raise TypeError(f"Wrong file type: {config_path.suffix}")
