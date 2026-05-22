@@ -6,7 +6,6 @@ This module defines Pydantic models for validating the YAML configuration file.
 from pathlib import Path
 from typing import Literal
 
-import yaml
 from pydantic import BaseModel, Field, field_validator, model_validator
 from pydantic_yaml import parse_yaml_raw_as
 
