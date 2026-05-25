@@ -19,7 +19,7 @@ class SmoothnessResult:
 
 def run_smoothness_test(
     model,
-    X_eval: pd.DataFrame,
+    x_eval: pd.DataFrame,
     input_ranges: list[tuple[float, float]],
     sample_fraction: float,
     perturbation_scaled_magnitude: float,
@@ -38,7 +38,7 @@ def run_smoothness_test(
 
     Args:
         model: Trained model (sklearn-compatible, already loaded).
-        X_eval: Evaluation features.
+        x_eval: Evaluation features.
         input_ranges: List of (min, max) tuples per input dimension.
         sample_fraction: Fraction of X_eval to sample.
         perturbation_scaled_magnitude: Perturbation size as fraction of input range.
@@ -51,17 +51,17 @@ def run_smoothness_test(
         SmoothnessResult with the max error ratio and pass/fail status.
     """
     rng = np.random.default_rng(random_state)
-    n_eval = len(X_eval)
+    n_eval = len(x_eval)
     n_subset = int(np.ceil(n_eval * sample_fraction))
 
     # Sample subset of evaluation points
     indices = rng.choice(n_eval, size=n_subset, replace=False)
-    X_subset = X_eval.iloc[indices]
+    x_subset = x_eval.iloc[indices]
 
     # Reference (unperturbed) predictions
-    y_ref = model.predict(X_subset)
+    y_ref = model.predict(x_subset)
 
-    n_dims = X_subset.shape[1]
+    n_dims = x_subset.shape[1]
     results_arr = np.zeros((n_subset, n_dims))
 
     for j in range(n_dims):
@@ -69,18 +69,18 @@ def run_smoothness_test(
         delta = (hi - lo) * perturbation_scaled_magnitude
 
         # Create perturbed copies along dimension j
-        col = X_subset.columns[j]
-        X_plus = X_subset.copy()
-        X_minus = X_subset.copy()
-        X_plus[col] = X_subset[col] + delta
-        X_minus[col] = X_subset[col] - delta
+        col = x_subset.columns[j]
+        x_plus = x_subset.copy()
+        x_minus = x_subset.copy()
+        x_plus[col] = x_subset[col] + delta
+        x_minus[col] = x_subset[col] - delta
 
-        y_plus = model.predict(X_plus)
-        y_minus = model.predict(X_minus)
+        y_plus = model.predict(x_plus)
+        y_minus = model.predict(x_minus)
 
         # MaximumRelativeErrorRatio: |(dy * x_j) / (2 * delta * y_ref)|
         results_arr[:, j] = np.abs(
-            (y_plus - y_minus) * X_subset[col].values / (2 * delta * y_ref)
+            (y_plus - y_minus) * x_subset[col].values / (2 * delta * y_ref)
         )
 
     max_ratio = float(np.max(results_arr))
