@@ -12,10 +12,13 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
+    "catboost>=1.2.10",
     "numpy>=2.4.4",
     "pandas>=3.0.2",
     "pydantic>=2.13.3",
+    "pydantic-yaml>=1.6.0",
     "scikit-learn>=1.8.0",
+    "xgboost>=3.2.0",
 ]
 
 [dependency-groups]
@@ -29,3 +32,6 @@ name = "testpypi"
 url = "https://test.pypi.org/simple/"
 publish-url = "https://test.pypi.org/legacy/"
 explicit = true
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "Q", "I", "N"]
