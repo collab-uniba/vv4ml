@@ -4,7 +4,6 @@ from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
-
 from training.metrics import mean_relative_error
 from training.model_factory import recreate_model
 
@@ -23,16 +22,16 @@ class ConvergenceResult:
 
 
 def run_convergence_test(
-        x_train: pd.DataFrame,
-        y_train: pd.Series,
-        x_eval: pd.DataFrame,
-        ref_predictions: np.ndarray,
-        model_type: str,
-        best_params: dict,
-        n_rows: list[int],
-        threshold: float,
-        output_name: str,
-        random_state: int = 42,
+    x_train: pd.DataFrame,
+    y_train: pd.Series,
+    x_eval: pd.DataFrame,
+    ref_predictions: np.ndarray,
+    model_type: str,
+    best_params: dict,
+    n_rows: list[int],
+    threshold: float,
+    output_name: str,
+    random_state: int = 42,
 ) -> ConvergenceResult:
     """Run the convergence test for a single output/model combination.
 
