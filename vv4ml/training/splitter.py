@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import GroupShuffleSplit, train_test_split
 
-from vv4ml.config import Config, TrainTestSplitConfig
+from config import Config, TrainTestSplitConfig
 
 
 @dataclass

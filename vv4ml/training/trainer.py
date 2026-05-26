@@ -7,7 +7,7 @@ import numpy as np
 from sklearn.base import BaseEstimator
 from sklearn.model_selection import GridSearchCV, GroupKFold, RandomizedSearchCV
 
-from vv4ml.config import ModelConfig, OptimizationConfig
+from config import ModelConfig, OptimizationConfig
 from vv4ml.training.metrics import evaluate_predictions, rmse_scorer
 from vv4ml.training.model_factory import (
     create_model,
