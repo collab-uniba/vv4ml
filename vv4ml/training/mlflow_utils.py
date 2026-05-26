@@ -10,7 +10,6 @@ import pandas as pd
 from mlflow.models import infer_signature
 from sklearn.base import BaseEstimator
 
-from vv4ml.config import Config
 from vv4ml.training.trainer import TrainingResult
 
 
