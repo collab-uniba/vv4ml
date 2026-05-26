@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import GroupShuffleSplit, train_test_split
 
-from bonestrength_ml.config import BoneStrengthMLConfig, TrainTestSplitConfig
+from vv4ml.config import Config, TrainTestSplitConfig
 
 
 @dataclass
