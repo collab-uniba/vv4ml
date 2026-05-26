@@ -8,7 +8,7 @@ from sklearn.base import BaseEstimator
 from sklearn.cross_decomposition import PLSRegression
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.gaussian_process import GaussianProcessRegressor
-from sklearn.gaussian_process.kernels import DotProduct, RBF, WhiteKernel
+from sklearn.gaussian_process.kernels import RBF, DotProduct, WhiteKernel
 from sklearn.linear_model import LinearRegression
 from sklearn.neural_network import MLPRegressor
 from sklearn.pipeline import Pipeline
@@ -16,8 +16,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVR
 from xgboost import XGBRegressor
 
-from bonestrength_ml.config import ModelConfig
-
+from vv4ml.config import ModelConfig
 
 MODEL_REGISTRY: dict[str, type[BaseEstimator]] = {
     "RandomForestRegressor": RandomForestRegressor,
@@ -114,7 +113,8 @@ def normalize_gpr_best_params(best_params: dict[str, Any]) -> dict[str, Any]:
         best_params: ``search.best_params_`` from GridSearchCV on a GPR Pipeline.
 
     Returns:
-        Clean dict with string-serializable values (e.g. ``{"kernel": "rbf_short", "alpha": 0.001}``).
+        Clean dict with string-serializable values (e.g.
+        ``{"kernel": "rbf_short", "alpha": 0.001}``).
     """
     normalized: dict[str, Any] = {}
     for key, value in best_params.items():
