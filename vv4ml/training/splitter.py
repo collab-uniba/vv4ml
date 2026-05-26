@@ -22,9 +22,9 @@ class TrainTestData:
 
 
 def prepare_train_test_split(
-    X: pd.DataFrame,
+    x: pd.DataFrame,
     y: pd.DataFrame,
-    config: BoneStrengthMLConfig,
+    config: Config,
     random_state: int = 42,
 ) -> dict[str, TrainTestData]:
     """Config-aware train/test split for all outputs.
@@ -37,7 +37,7 @@ def prepare_train_test_split(
     verification tests should use to guarantee identical splits.
 
     Args:
-        X: Feature DataFrame with input columns.
+        x: Feature DataFrame with input columns.
         y: Target DataFrame with output columns.
         config: Full project configuration.
         random_state: Random seed for reproducibility.
@@ -50,10 +50,10 @@ def prepare_train_test_split(
     groups = None
     if split_config.method == "grouped":
         pc_columns = [f.name for f in config.dataset.inputs if f.name.startswith("PC_")]
-        groups = X.groupby(pc_columns, sort=False).ngroup().values
+        groups = x.groupby(pc_columns, sort=False).ngroup().values
 
     return split_data_for_all_outputs(
-        X,
+        x,
         y,
         split_config=split_config,
         random_state=random_state,
