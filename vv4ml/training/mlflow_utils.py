@@ -55,8 +55,8 @@ def setup_mlflow(
 
 def log_training_result(
     result: TrainingResult,
-    config: BoneStrengthMLConfig,
-    X_sample: pd.DataFrame,
+    config: Config,
+    x_sample: pd.DataFrame,
     run_name: str | None = None,
     register_model: bool = False,
 ) -> str:
@@ -65,7 +65,7 @@ def log_training_result(
     Args:
         result: TrainingResult from training.
         config: Full configuration used.
-        X_sample: Sample input data for signature inference.
+        x_sample: Sample input data for signature inference.
         run_name: Optional run name.
         register_model: Whether to register model in Model Registry.
 
@@ -101,13 +101,13 @@ def log_training_result(
             mlflow.log_metric(f"train_{metric_name}", value)
 
         # Log model with signature
-        signature = infer_signature(X_sample, result.best_estimator.predict(X_sample))
+        signature = infer_signature(x_sample, result.best_estimator.predict(x_sample))
 
         model_info = mlflow.sklearn.log_model(
             result.best_estimator,
             artifact_path="model",
             signature=signature,
-            input_example=X_sample.iloc[:5],
+            input_example=x_sample.iloc[:5],
         )
 
         # Log CV results if available
@@ -143,14 +143,16 @@ def log_experiment_summary(
         # Create comparison table
         summary_data = []
         for r in results:
-            summary_data.append({
-                "output": r.output_name,
-                "model": r.model_label,
-                "test_rmse": r.test_metrics["rmse"],
-                "test_r2": r.test_metrics["r2"],
-                "test_mae": r.test_metrics["mae"],
-                "test_max_ae": r.test_metrics["max_ae"],
-            })
+            summary_data.append(
+                {
+                    "output": r.output_name,
+                    "model": r.model_label,
+                    "test_rmse": r.test_metrics["rmse"],
+                    "test_r2": r.test_metrics["r2"],
+                    "test_mae": r.test_metrics["mae"],
+                    "test_max_ae": r.test_metrics["max_ae"],
+                }
+            )
 
         summary_df = pd.DataFrame(summary_data)
         mlflow.log_table(summary_df, artifact_file="model_comparison.json")
@@ -249,9 +251,7 @@ def load_best_run(
     run = mlflow.get_run(best_run_id)
     params = run.data.params
     best_params = {
-        k.removeprefix("best_"): v
-        for k, v in params.items()
-        if k.startswith("best_")
+        k.removeprefix("best_"): v for k, v in params.items() if k.startswith("best_")
     }
 
     return BestRunInfo(
