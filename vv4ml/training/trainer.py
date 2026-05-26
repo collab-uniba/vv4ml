@@ -7,14 +7,14 @@ import numpy as np
 from sklearn.base import BaseEstimator
 from sklearn.model_selection import GridSearchCV, GroupKFold, RandomizedSearchCV
 
-from bonestrength_ml.config import ModelConfig, OptimizationConfig
-from bonestrength_ml.training.metrics import evaluate_predictions, rmse_scorer
-from bonestrength_ml.training.model_factory import (
+from vv4ml.config import ModelConfig, OptimizationConfig
+from vv4ml.training.metrics import evaluate_predictions, rmse_scorer
+from vv4ml.training.model_factory import (
     create_model,
     get_param_grid,
     normalize_gpr_best_params,
 )
-from bonestrength_ml.training.splitter import TrainTestData
+from vv4ml.training.splitter import TrainTestData
 
 
 @dataclass
@@ -105,7 +105,11 @@ def _create_search(
     groups_train: np.ndarray | None = None,
 ) -> GridSearchCV | RandomizedSearchCV:
     """Create the appropriate search object based on config."""
-    cv = GroupKFold(n_splits=opt_config.cv) if groups_train is not None else opt_config.cv
+    cv = (
+        GroupKFold(n_splits=opt_config.cv)
+        if groups_train is not None
+        else opt_config.cv
+    )
 
     common_kwargs = {
         "estimator": base_model,
