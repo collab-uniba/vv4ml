@@ -128,13 +128,11 @@ def log_training_result(
 
 def log_experiment_summary(
     results: list[TrainingResult],
-    config: BoneStrengthMLConfig,
 ) -> str:
     """Log a summary run comparing all models.
 
     Args:
         results: List of all training results.
-        config: Configuration used.
 
     Returns:
         MLflow run ID for summary.
