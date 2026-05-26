@@ -123,7 +123,7 @@ def split_data_for_all_outputs(
 
 
 def _grouped_split(
-    X: pd.DataFrame,
+    x: pd.DataFrame,
     groups: np.ndarray | None,
     split_config: TrainTestSplitConfig,
     random_state: int,
@@ -131,7 +131,7 @@ def _grouped_split(
     """Perform group-aware train/test split using GroupShuffleSplit.
 
     Args:
-        X: Feature DataFrame.
+        x: Feature DataFrame.
         groups: Integer array of group labels (one per row).
         split_config: Split configuration with train_fraction.
         random_state: Random seed.
@@ -150,5 +150,5 @@ def _grouped_split(
         train_size=split_config.train_fraction,
         random_state=random_state,
     )
-    train_idx, test_idx = next(splitter.split(X, groups=groups))
+    train_idx, test_idx = next(splitter.split(x, groups=groups))
     return train_idx, test_idx
