@@ -62,7 +62,7 @@ def prepare_train_test_split(
 
 
 def split_data_for_all_outputs(
-    X: pd.DataFrame,
+    x: pd.DataFrame,
     y: pd.DataFrame,
     split_config: TrainTestSplitConfig,
     random_state: int = 42,
@@ -84,7 +84,7 @@ def split_data_for_all_outputs(
     ratio may differ depending on group sizes.
 
     Args:
-        X: Feature DataFrame with input columns.
+        x: Feature DataFrame with input columns.
         y: Target DataFrame with output columns.
         split_config: TrainTestSplitConfig from config.
         random_state: Random seed for reproducibility.
@@ -95,10 +95,10 @@ def split_data_for_all_outputs(
         Dict mapping output_name -> TrainTestData.
     """
     if split_config.method == "grouped":
-        train_idx, test_idx = _grouped_split(X, groups, split_config, random_state)
+        train_idx, test_idx = _grouped_split(x, groups, split_config, random_state)
     else:
         # Original random split behavior
-        indices = np.arange(len(X))
+        indices = np.arange(len(x))
         train_idx, test_idx = train_test_split(
             indices,
             train_size=split_config.train_fraction,
@@ -111,8 +111,8 @@ def split_data_for_all_outputs(
     result: dict[str, TrainTestData] = {}
     for output_name in y.columns:
         result[output_name] = TrainTestData(
-            X_train=X.iloc[train_idx].reset_index(drop=True),
-            X_test=X.iloc[test_idx].reset_index(drop=True),
+            X_train=x.iloc[train_idx].reset_index(drop=True),
+            X_test=x.iloc[test_idx].reset_index(drop=True),
             y_train=y[output_name].iloc[train_idx].reset_index(drop=True),
             y_test=y[output_name].iloc[test_idx].reset_index(drop=True),
             output_name=output_name,
