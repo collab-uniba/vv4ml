@@ -7,10 +7,11 @@ from typing import Any
 
 import mlflow
 import pandas as pd
-from bonestrength_ml.config import BoneStrengthMLConfig
-from bonestrength_ml.training.trainer import TrainingResult
 from mlflow.models import infer_signature
 from sklearn.base import BaseEstimator
+
+from vv4ml.config import Config
+from vv4ml.training.trainer import TrainingResult
 
 
 @dataclass
