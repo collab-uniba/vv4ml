@@ -1,7 +1,8 @@
 """Verification tests for BoneStrengthML models."""
 
+from utils.latin_hypercube import generate_lhs_samples
+
 from vv4ml.verification.convergence import ConvergenceResult, run_convergence_test
-from vv4ml.verification.latin_hypercube import generate_lhs_samples
 from vv4ml.verification.smoothness import SmoothnessResult, run_smoothness_test
 
 __all__ = [
