@@ -12,61 +12,61 @@ from sklearn.metrics import pairwise_distances_chunked as pdc
 from config import InputField
 
 
-def _LHbasic(
-    parNum: int, sampleSize: int, randGen: np.random.Generator
+def _lh_basic(
+    par_num: int, sample_size: int, rand_gen: np.random.Generator
 ) -> NDArray[np.float64]:
-    LHlim = np.linspace(0, 1, sampleSize + 1)[np.newaxis].T
-    samCoord = randGen.random((sampleSize, parNum))
-    samCoord = samCoord * (LHlim[1:] - LHlim[:-1]) + LHlim[:-1]
-    for ii in range(parNum):
-        samCoord[:, ii] = samCoord[randGen.permutation(sampleSize), ii]
+    lh_lim = np.linspace(0, 1, sample_size + 1)[np.newaxis].T
+    sam_coord = rand_gen.random((sample_size, par_num))
+    sam_coord = sam_coord * (lh_lim[1:] - lh_lim[:-1]) + lh_lim[:-1]
+    for ii in range(par_num):
+        sam_coord[:, ii] = sam_coord[rand_gen.permutation(sample_size), ii]
 
-    return samCoord
+    return sam_coord
 
 
-def _LHmaximin(
-    parNum: int, sampleSize: int, randGen: np.random.Generator, iterNum: int
+def _lh_maximin(
+    par_num: int, sample_size: int, rand_gen: np.random.Generator, iter_num: int
 ) -> NDArray[np.float64]:
-    LHminDist = 0
-    for _ in range(iterNum):
-        candDist = np.inf
-        candCoord = _LHbasic(parNum, sampleSize, randGen)
+    lh_min_dist = 0
+    for _ in range(iter_num):
+        cand_dist = np.inf
+        cand_coord = _lh_basic(par_num, sample_size, rand_gen)
 
-        distIter = pdc(candCoord, metric="euclidean")
-        for matChunk in distIter:
-            minDist = np.min(matChunk, where=(matChunk != 0), initial=np.inf)
-            if candDist > minDist:
-                candDist = minDist
+        dist_iter = pdc(cand_coord, metric="euclidean")
+        for mat_chunk in dist_iter:
+            min_dist = np.min(mat_chunk, where=(mat_chunk != 0), initial=np.inf)
+            if cand_dist > min_dist:
+                cand_dist = min_dist
 
-        if LHminDist < candDist:
-            LHminDist = candDist
-            optimLH = candCoord
+        if lh_min_dist < cand_dist:
+            lh_min_dist = cand_dist
+            optim_lh = cand_coord
 
-    return optimLH
+    return optim_lh
 
 
-def LHgen(
-    parNum: int,
-    sampleSize: int,
+def lh_gen(
+    par_num: int,
+    sample_size: int,
     optimization: Optional[Literal["maximin"]] = None,
-    iterNum: int = 5,
-    randGen: np.random.Generator = np.random.default_rng(),
+    iter_num: int = 5,
+    rand_gen: np.random.Generator = np.random.default_rng(),
 ) -> NDArray[np.float64]:
     """Generate a Latin Hypercube Sampling (LHS) design.
 
     Parameters
     ----------
-    parNum : int
+    par_num : int
         Number of parameters to sample (dimension space).
-    sampleSize : int
+    sample_size : int
         Number of sample points to be generated in the space.
     optimization : str, optional
         Method to choose the best sample candidate. Currently the only supported
         method is `maximin` (see the note below).
-    iterNum : int, default 5
+    iter_num : int, default 5
         Number of iterations to find the best sampling. Unused if `optimization`
         is `None`.
-    randGen : NumPy random number generator instance, optional
+    rand_gen : NumPy random number generator instance, optional
         Optional parameter to pass a custom random number generator.
 
     Returns
@@ -82,9 +82,9 @@ def LHgen(
     for large numbers (>1000) of sample points.
     """
     if optimization is None:
-        samples = _LHbasic(parNum, sampleSize, randGen)
+        samples = _lh_basic(par_num, sample_size, rand_gen)
     elif optimization == "maximin":
-        samples = _LHmaximin(parNum, sampleSize, randGen, iterNum)
+        samples = _lh_maximin(par_num, sample_size, rand_gen, iter_num)
     else:
         raise ValueError(f"Unsupported optimization method: {optimization!r}")
 
@@ -109,12 +109,11 @@ def generate_lhs_samples(
 
     Returns
     -------
-    pd.DataFrame
-        DataFrame with `sample_size` rows and one column per input field,
+    pd.DataFrame with `sample_size` rows and one column per input field,
         values scaled to each field's configured range.
     """
-    randGen = np.random.default_rng(random_state)
-    samples = LHgen(parNum=len(inputs), sampleSize=sample_size, randGen=randGen)
+    rand_gen = np.random.default_rng(random_state)
+    samples = lh_gen(par_num=len(inputs), sample_size=sample_size, rand_gen=rand_gen)
 
     # Scale each column from [0, 1] to the input field's range
     for i, field in enumerate(inputs):
