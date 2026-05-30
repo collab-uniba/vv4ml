@@ -9,7 +9,7 @@ import pandas as pd
 from numpy.typing import NDArray
 from sklearn.metrics import pairwise_distances_chunked as pdc
 
-from config import InputField
+from vv4ml.config import InputField
 
 
 def _lh_basic(

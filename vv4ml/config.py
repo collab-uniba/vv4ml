@@ -225,7 +225,6 @@ class ModelDevelopmentConfig(BaseModel):
 # =============================================================================
 
 
-# TODO: Fit class for generic configs starting with the name BoneStrengthMLConfig --> Config or MLConfig
 class Config(BaseModel):
     """Root configuration for ML pipeline."""
 
