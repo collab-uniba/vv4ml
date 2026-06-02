@@ -1796,7 +1796,7 @@ wheels = [
 
 [[package]]
 name = "vv4ml"
-version = "0.1.6.post4"
+version = "0.1.6.post5"
 source = { virtual = "." }
 dependencies = [
     { name = "catboost" },
