@@ -102,5 +102,5 @@ def run_convergence_test(
         errors=errors,
         threshold=threshold,
         min_k=min_k,
-        converged=converged,
+        passed=converged,
     )
