@@ -4,22 +4,20 @@ from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
+from base_result import Result
 
 from vv4ml.utils.metrics import mean_relative_error
 from vv4ml.utils.model_factory import recreate_model
 
 
 @dataclass
-class ConvergenceResult:
+class ConvergenceResult(Result):
     """Result of a convergence test for a single output/model combination."""
 
-    output_name: str
-    model_type: str
     n_rows_tested: list[int]
     errors: list[float]
     threshold: float
     min_k: int | None
-    converged: bool
 
 
 def run_convergence_test(
