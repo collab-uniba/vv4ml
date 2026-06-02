@@ -1,8 +1,7 @@
 # Verification and Validation for Machine Learning
 
-![py_ver](https://img.shields.io/badge/py__ver-3.14.4-blue)
-![license](https://img.shields.io/badge/license-TBA-lightgrey)
-[<img src="https://i0.wp.com/collab.di.uniba.it/wp-content/uploads/2023/08/Logo-Collab-graphic-only-e1690967081844.png?fit=85%2C85&ssl=1" alt="COLLAB logo" height="20"> ![COLLAB 0.1.5](https://img.shields.io/badge/COLLAB-0.1.5-lightgrey)](https://collab.di.uniba.it/)
+![Dynamic TOML Badge](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fcollab-uniba%2Fvv4ml%2Frefs%2Fheads%2Fhotfix%2Fdelete-unecessary-modules%2Fpyproject.toml%3Ftoken%3DGHSAT0AAAAAAD5BYN5VCWFUMZ5RXV3KFKCS2QYPU6A&query=%24.project.requires-python&style=for-the-badge&label=py_ver)
+![Dynamic TOML Badge](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fcollab-uniba%2Fvv4ml%2Frefs%2Fheads%2Fhotfix%2Fdelete-unecessary-modules%2Fpyproject.toml%3Ftoken%3DGHSAT0AAAAAAD5BYN5VCWFUMZ5RXV3KFKCS2QYPU6A&query=%24.project.version&style=for-the-badge&label=COLLAB&labelColor=yellow&color=%23284169)
 
 `vv4ml` fornisce strumenti per la verifica e la validazione di modelli di
 machine learning.

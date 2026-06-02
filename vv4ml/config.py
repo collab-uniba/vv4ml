@@ -9,7 +9,6 @@ from typing import Literal
 from pydantic import BaseModel, Field, field_validator, model_validator
 from pydantic_yaml import parse_yaml_raw_as
 
-
 # =============================================================================
 # Dataset Configuration Models
 # =============================================================================
@@ -226,7 +225,6 @@ class ModelDevelopmentConfig(BaseModel):
 # =============================================================================
 
 
-# TODO: Fit class for generic configs starting with the name BoneStrengthMLConfig --> Config or MLConfig
 class Config(BaseModel):
     """Root configuration for ML pipeline."""
 

@@ -4,8 +4,9 @@ from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
-from training.metrics import mean_relative_error
-from training.model_factory import recreate_model
+
+from vv4ml.utils.metrics import mean_relative_error
+from vv4ml.utils.model_factory import recreate_model
 
 
 @dataclass

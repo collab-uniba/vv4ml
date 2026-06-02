@@ -16,7 +16,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVR
 from xgboost import XGBRegressor
 
-from config import ModelConfig
+from vv4ml.config import ModelConfig
 
 MODEL_REGISTRY: dict[str, type[BaseEstimator]] = {
     "RandomForestRegressor": RandomForestRegressor,
@@ -288,7 +288,7 @@ def _coerce_param_types(model_class: type, params: dict[str, Any]) -> dict[str, 
                 else:
                     coerced[k] = v
                 continue
-            except ValueError, TypeError:
+            except (ValueError, TypeError):
                 pass
 
         # Fallback: coerce heuristically
