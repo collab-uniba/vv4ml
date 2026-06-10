@@ -4,17 +4,15 @@ from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
+from base_result import Result
 
 
 @dataclass
-class SmoothnessResult:
+class SmoothnessResult(Result):
     """Result of a smoothness test for a single output/model combination."""
 
-    output_name: str
-    model_type: str
     max_error_ratio: float
     threshold: float
-    passed: bool
 
 
 def run_smoothness_test(
