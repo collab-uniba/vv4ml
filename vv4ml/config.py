@@ -1,4 +1,4 @@
-"""Configuration models for BoneStrengthML pipeline.
+"""Configuration models for ML pipeline.
 
 This module defines Pydantic models for validating the YAML configuration file.
 """
