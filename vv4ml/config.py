@@ -249,12 +249,8 @@ class Config(BaseModel):
         path = Path(path)
         raw_yaml = path.read_text(encoding="utf-8")
         return parse_yaml_raw_as(Config, raw_yaml)
-        # with path.open() as f:
-        #     data = yaml.safe_load(f)
-        # return cls.model_validate(data)
 
 
-# TODO: manage relative paths, multiple YAMLs and wrong following schema YAMLs
 def load_config(config_path: str | Path) -> Config:
     """Load and validate the ML configuration.
 
