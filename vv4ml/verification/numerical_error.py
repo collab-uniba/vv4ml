@@ -25,7 +25,7 @@ def max_std_var(a: np.ndarray) -> float:
         raise Exception("Can't compute max variance across empty array")
 
 
-def numerical_error(
+def run_numerical_error_test(
     x_train: pd.DataFrame,
     y_train: pd.DataFrame,
     x_eval: pd.DataFrame,
