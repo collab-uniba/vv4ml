@@ -1,6 +1,5 @@
 """Numerical error test"""
 
-from array import ArrayType
 from dataclasses import dataclass
 
 import numpy as np
@@ -19,6 +18,7 @@ class NumericalErrorResult(Result):
 
 
 def max_std_var(a: np.ndarray) -> float:
+    """Compute the maximum standard deviation (variance) over an n-dimensional array"""
     if len(a) > 0:
         return np.max(np.std(a, ddof=1, axis=1))
     else:
