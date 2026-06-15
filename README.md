@@ -1,4 +1,6 @@
-<img src="logo/vv4ml-logo-icon.png" width="350" style="display: block; margin: 0 auto">
+<h1 align="center">
+    <img src="logo/vv4ml-logo-icon.png" width="350" alt="logo">
+</h1><br>
 
 ---
 ![Dynamic TOML Badge](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fcollab-uniba%2Fvv4ml%2Frefs%2Fheads%2Fmain%2Fpyproject.toml%3Ftoken%3DGHSAT0AAAAAAD5BYN5UMP7KSOC4YNMP7IFI2RQE5LQ&query=%24.project.requires-python&style=for-the-badge&label=py_ver)
