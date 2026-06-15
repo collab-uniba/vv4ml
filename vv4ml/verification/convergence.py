@@ -4,10 +4,10 @@ from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
-from base_result import Result
 
 from vv4ml.utils.metrics import mean_relative_error
 from vv4ml.utils.model_factory import recreate_model
+from vv4ml.verification.base_result import Result
 
 
 @dataclass
