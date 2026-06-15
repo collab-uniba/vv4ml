@@ -4,7 +4,8 @@ from dataclasses import dataclass
 
 import numpy as np
 import pandas as pd
-from base_result import Result
+
+from vv4ml.verification.base_result import Result
 
 
 @dataclass
