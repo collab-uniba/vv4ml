@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Installation - VV4ML</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Installation";
+        var mkdocs_page_input_path = "install.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> VV4ML
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Welcome</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul class="current">
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Installation</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#installing-vv4ml">Installing VV4ML</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#option-1-using-uv-preferred">Option 1: Using uv (Preferred)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#option-2-using-pip-standard">Option 2: Using pip (Standard)</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../quickstart/">Quickstart</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Architecture</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../config/">YAML Configuration File</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Verification Modules</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../verification/smoothness/">Smoothness Test</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../verification/convergence/">Convergence Test</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../verification/numerical_error/">Numerical Error Test</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">VV4ML</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Getting Started</li>
+      <li class="breadcrumb-item active">Installation</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="installation">Installation</h1>
+<h2 id="requirements">Requirements</h2>
+<p>Before installing VV4ML, ensure your system meets the following requirements:</p>
+<ul>
+<li><a href="https://www.python.org/">Python</a> &gt;= 3.11</li>
+<li>(Optional, but recommended) <a href="https://docs.astral.sh/uv/">uv</a> &gt;= 0.11</li>
+</ul>
+<hr />
+<h2 id="installing-vv4ml">Installing VV4ML</h2>
+<p>You can install VV4ML using either <code>pip</code> or <code>uv</code>. We highly recommend using a virtual environment for your Python
+projects.</p>
+<h3 id="option-1-using-uv-preferred">Option 1: Using <code>uv</code> (Preferred)</h3>
+<p>The preferred and fastest way to install VV4ML is via <code>uv</code>. </p>
+<p>If you are managing a project and want to add VV4ML as a dependency to your <code>pyproject.toml</code>, run:</p>
+<pre><code class="language-bash">uv add vv4ml
+</code></pre>
+<p>Alternatively, if you just want to install it into your active virtual environment, use:</p>
+<pre><code class="language-bash">uv pip install vv4ml
+</code></pre>
+<h3 id="option-2-using-pip-standard">Option 2: Using <code>pip</code> (Standard)</h3>
+<p>The standard way to install VV4ML is via <code>pip</code>. We recommend updating <code>pip</code> to the latest version before proceeding:</p>
+<pre><code class="language-bash">pip install --upgrade pip
+</code></pre>
+<p>Then install the library:</p>
+<pre><code class="language-bash">pip install vv4ml
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Welcome"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../quickstart/" class="btn btn-neutral float-right" title="Quickstart">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../quickstart/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../javascripts/mathjax.js"></script>
+      <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chml.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

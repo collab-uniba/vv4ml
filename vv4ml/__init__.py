@@ -23,18 +23,8 @@ from vv4ml.config import (
     load_config,
 )
 from vv4ml.utils import (
-    create_model,
-    evaluate_predictions,
-    get_param_grid,
-    make_scorer,
-    max_absolute_error,
-    mean_absolute_error,
     mean_relative_error,
-    mean_squared_error,
-    normalize_gpr_best_params,
     recreate_model,
-    rmse,
-    rmse_scorer,
 )
 from vv4ml.verification import (
     ConvergenceResult,
@@ -71,17 +61,8 @@ __all__ = [
     "TestConfigurations",
     "Config",
     "load_config",
-    "create_model",
-    "get_param_grid",
-    "normalize_gpr_best_params",
     "recreate_model",
-    "rmse",
-    "rmse_scorer",
     "mean_relative_error",
-    "mean_absolute_error",
-    "mean_squared_error",
-    "max_absolute_error",
-    "make_scorer",
     "ConvergenceResult",
     "SmoothnessResult",
     "NumericalErrorResult",
@@ -89,5 +70,4 @@ __all__ = [
     "run_convergence_test",
     "run_smoothness_test",
     "run_numerical_error_test",
-    "evaluate_predictions",
 ]
