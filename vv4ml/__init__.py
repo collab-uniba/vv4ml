@@ -27,6 +27,7 @@ from vv4ml.utils import (
     mean_absolute_error,
     max_absolute_error,
     max_relative_error,
+    METRICS_REGISTRY,
     recreate_model,
 )
 from vv4ml.verification import (
@@ -69,6 +70,7 @@ __all__ = [
     "mean_absolute_error",
     "max_relative_error",
     "max_absolute_error",
+    "METRICS_REGISTRY",
     "ConvergenceResult",
     "SmoothnessResult",
     "NumericalErrorResult",

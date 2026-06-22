@@ -70,6 +70,7 @@ def max_absolute_error(y_pred: ArrayLike, y_ref: ArrayLike) -> float:
 
     return float(np.max(np.abs(y_pred_arr - y_ref_arr)))
 
+
 # =============================================================================
 # Metrics Registry
 # =============================================================================
