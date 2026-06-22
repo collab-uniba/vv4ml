@@ -19,4 +19,20 @@ def mean_relative_error(y_pred: ArrayLike, y_ref: ArrayLike) -> float:
     """
     y_pred_arr = np.asarray(y_pred)
     y_ref_arr = np.asarray(y_ref)
+
     return float(np.mean(np.abs((y_pred_arr - y_ref_arr) / y_ref_arr)))
+
+def max_relative_error(y_pred: ArrayLike, y_ref: ArrayLike) -> float:
+    """Calculate Max Relative Error between predictions and reference values.
+
+    Args:
+        y_pred: Predicted values from the subset-trained model.
+        y_ref: Reference predictions from the fully trained model.
+
+    Returns:
+        Max Relative Error as a fraction (e.g. 0.05 = 5%).
+    """
+    y_pred_arr = np.asarray(y_pred)
+    y_ref_arr = np.asarray(y_ref)
+
+    return float(np.max(np.abs((y_pred_arr - y_ref_arr) / y_ref_arr)))
