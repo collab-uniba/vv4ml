@@ -16,8 +16,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVR
 from xgboost import XGBRegressor
 
-from vv4ml.config import ModelConfig
 
+# Dictionary with supported models
 MODEL_REGISTRY: dict[str, type[BaseEstimator]] = {
     "RandomForestRegressor": RandomForestRegressor,
     "XGBoostRegressor": XGBRegressor,
