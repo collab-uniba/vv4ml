@@ -69,3 +69,16 @@ def max_absolute_error(y_pred: ArrayLike, y_ref: ArrayLike) -> float:
     y_ref_arr = np.asarray(y_ref)
 
     return float(np.max(np.abs(y_pred_arr - y_ref_arr)))
+
+# =============================================================================
+# Metrics Registry
+# =============================================================================
+
+# This dictionary maps the available metrics strings directly
+# to their respective mathematical functions.
+METRICS_REGISTRY = {
+    "MeanRelativeError": mean_relative_error,
+    "MaximumRelativeError": max_relative_error,
+    "MeanAbsoluteError": mean_absolute_error,
+    "MaximumAbsoluteError": max_absolute_error,
+}
