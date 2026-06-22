@@ -22,6 +22,7 @@ def mean_relative_error(y_pred: ArrayLike, y_ref: ArrayLike) -> float:
 
     return float(np.mean(np.abs((y_pred_arr - y_ref_arr) / y_ref_arr)))
 
+
 def max_relative_error(y_pred: ArrayLike, y_ref: ArrayLike) -> float:
     """Calculate Max Relative Error between predictions and reference values.
 
@@ -36,6 +37,7 @@ def max_relative_error(y_pred: ArrayLike, y_ref: ArrayLike) -> float:
     y_ref_arr = np.asarray(y_ref)
 
     return float(np.max(np.abs((y_pred_arr - y_ref_arr) / y_ref_arr)))
+
 
 def mean_absolute_error(y_pred: ArrayLike, y_ref: ArrayLike) -> float:
     """Calculate Mean Absolute Error between predictions and reference values.
