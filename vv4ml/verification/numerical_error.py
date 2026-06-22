@@ -35,7 +35,6 @@ def run_numerical_error_test(
     n_repetitions: int,
     convergence_rows: int,
     threshold: float,
-    output_name: str,
     random_state: int = 42,
 ) -> NumericalErrorResult:
     """Run the numerical error test.
@@ -82,8 +81,6 @@ def run_numerical_error_test(
     passed = max_variance <= threshold
 
     return NumericalErrorResult(
-        output_name=output_name,
-        model_type=model_type,
         passed=passed,
         threshold=threshold,
         max_variance=max_variance,

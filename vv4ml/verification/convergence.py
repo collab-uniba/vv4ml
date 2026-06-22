@@ -29,7 +29,6 @@ def run_convergence_test(
     best_params: dict,
     n_rows: list[int],
     threshold: float,
-    output_name: str,
     random_state: int = 42,
 ) -> ConvergenceResult:
     """Run the convergence test for a single output/model combination.
@@ -52,7 +51,6 @@ def run_convergence_test(
         best_params: Best hyperparameters from the reference model.
         n_rows: Sorted list of subset sizes to test.
         threshold: MRE threshold for convergence.
-        output_name: Name of the output being tested.
         random_state: Random seed for reproducibility.
 
     Returns:
@@ -96,8 +94,6 @@ def run_convergence_test(
         converged = True
 
     return ConvergenceResult(
-        output_name=output_name,
-        model_type=model_type,
         n_rows_tested=n_rows,
         errors=errors,
         threshold=threshold,
