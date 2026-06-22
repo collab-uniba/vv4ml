@@ -19,6 +19,8 @@ across different data slices, VV4ML provides the tools you need through a clean 
 
 ## Where to go from here?
 
-* Check out the [Installation Guide](install.md) to get VV4ML set up on your machine.
-* Read the [Quickstart](quickstart.md) to see VV4ML in action in less than 5 minutes.
-* Explore the [User Guide](user_guide.md) for an in-depth look at advanced verification techniques.
+* 🛠️ **[Installation Guide](install.md):** Get VV4ML set up on your machine using `pip` or `uv`.
+* ⚡ **[Quickstart](quickstart.md):** See VV4ML in action and run your first programmatic Smoothness test.
+* 📋 **[Configuration Guide](config.md):** Learn how to define your entire V&V pipeline using structured YAML files.
+* 🔬 **Verification Modules:** Dive deep into the mathematics and parameters of [Smoothness](verification/smoothness.md),
+[Convergence](verification/convergence.md), and [Numerical Error](verification/numerical_error.md).

@@ -38,20 +38,4 @@ In particular:
 
 ## Get started
 
-### Installation
-
-To install vv4ml refer to the `INSTALL.rst` document where you find everything needed
-to ensure a successful installation.
-
-### Utilization
-
-To start off with vv4ml refer to the `GUIDE.rst` document where you find use cases, tips and
-suggestions to integrate the library into your code.
-
-## Contributors and maintainers
-
-TBA
-
-### How do I contribute?
-
-TBA
+Refer to the [Read the Docs guide here]()
