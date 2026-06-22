@@ -40,8 +40,6 @@ def run_smoothness_test(
         sample_fraction: Fraction of X_eval to sample.
         perturbation_scaled_magnitude: Perturbation size as fraction of input range.
         threshold: Maximum acceptable error ratio.
-        output_name: Name of the output being tested.
-        model_type: Model type string for reporting.
         random_state: Random seed for reproducibility.
 
     Returns:
