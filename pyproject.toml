@@ -1,7 +1,7 @@
 [project]
 name = "vv4ml"
-version = "0.1.8"
-requires-python = ">=3.11"
+version = "0.1.9"
+requires-python = ">=3.12"
 authors = [
     { name = "Cristiano Epifania", email = "c.epifania5@studenti.uniba.it" }
 ]
@@ -24,8 +24,10 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "black>=26.3.1",
     "ruff>=0.15.12",
+    "mkdocs",
+    "mkdocstrings[python]>=0.18",
+    "mathjax",
 ]
 
 [[tool.uv.index]]
@@ -37,5 +39,9 @@ explicit = true
 [tool.ruff.lint]
 select = ["E", "F", "W", "Q", "I", "N"]
 
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
 [tool.setuptools]
-py-modules = []
+py-modules = ["vv4ml"]

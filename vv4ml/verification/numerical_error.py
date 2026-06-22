@@ -35,7 +35,6 @@ def run_numerical_error_test(
     n_repetitions: int,
     convergence_rows: int,
     threshold: float,
-    output_name: str,
     random_state: int = 42,
 ) -> NumericalErrorResult:
     """Run the numerical error test.
@@ -48,17 +47,16 @@ def run_numerical_error_test(
     variance doesn't exceed threshold.
 
     Args:
-        x_train: Training features
-        y_train: Training target labels
-        x_eval: Validation features
-        model_type: Model type key in MODEL_REGISTRY
-        best_params: Best hyperparameters for the reference model
-        n_repetitions: Number of times when training is performed
+        x_train: Training features.
+        y_train: Training target labels.
+        x_eval: Validation features.
+        model_type: Model type key in MODEL_REGISTRY.
+        best_params: Best hyperparameters for the reference model.
+        n_repetitions: Number of times when training is performed.
         convergence_rows: Number of rows to randomly choose (that is the minimum number
-        of rows needed to observe convergence)
-        threshold: Maximum tolerance threshold for numeric instability
-        output_name: Name of output being tested
-        random_state: Random seed for reproducibility
+        of rows needed to observe convergence).
+        threshold: Maximum tolerance threshold for numeric instability.
+        random_state: Random seed for reproducibility.
 
     Returns:
          NumericalErrorResult with maximum variance registered in n_repetitions and
@@ -82,8 +80,6 @@ def run_numerical_error_test(
     passed = max_variance <= threshold
 
     return NumericalErrorResult(
-        output_name=output_name,
-        model_type=model_type,
         passed=passed,
         threshold=threshold,
         max_variance=max_variance,

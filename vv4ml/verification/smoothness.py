@@ -23,8 +23,6 @@ def run_smoothness_test(
     sample_fraction: float,
     perturbation_scaled_magnitude: float,
     threshold: float,
-    output_name: str,
-    model_type: str,
     random_state: int = 42,
 ) -> SmoothnessResult:
     """Run the smoothness test for a single output/model combination.
@@ -42,8 +40,6 @@ def run_smoothness_test(
         sample_fraction: Fraction of X_eval to sample.
         perturbation_scaled_magnitude: Perturbation size as fraction of input range.
         threshold: Maximum acceptable error ratio.
-        output_name: Name of the output being tested.
-        model_type: Model type string for reporting.
         random_state: Random seed for reproducibility.
 
     Returns:
@@ -85,8 +81,6 @@ def run_smoothness_test(
     max_ratio = float(np.max(results_arr))
 
     return SmoothnessResult(
-        output_name=output_name,
-        model_type=model_type,
         max_error_ratio=max_ratio,
         threshold=threshold,
         passed=max_ratio <= threshold,
