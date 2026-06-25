@@ -61,7 +61,9 @@ def _error_handle(
     return errors
 
 
-def _min_k(errors: list[float], n_rows: list[int], threshold: float) -> tuple[int | None, bool]:
+def _min_k(
+    errors: list[float], n_rows: list[int], threshold: float
+) -> tuple[int | None, bool]:
     """Find minimum K: the first subset size at which error is below threshold and remains below
     for all subsequent sizes.
     Find the last index where error > threshold, then min_k is the next index's n_rows value.
@@ -91,6 +93,7 @@ def _min_k(errors: list[float], n_rows: list[int], threshold: float) -> tuple[in
         converged = True
 
     return min_k, converged
+
 
 def run_convergence_test(
     x_train: pd.DataFrame,
