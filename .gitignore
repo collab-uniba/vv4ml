@@ -5,4 +5,4 @@ verification/__pycache__/
 .codex
 
 # uv related
-vv4ml.egg-info/
+vv4ml.egg-info/*
