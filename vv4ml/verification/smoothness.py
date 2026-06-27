@@ -15,6 +15,15 @@ class SmoothnessResult(Result):
     max_error_ratio: float
     threshold: float
 
+def _calculate_relative_error_ratio(
+    y_plus: np.ndarray,
+    y_minus: np.ndarray,
+    x_col_values: np.ndarray,
+    delta: float,
+    y_ref: np.ndarray,
+) -> np.ndarray:
+    """Compute the MaximumRelativeErrorRatio (normalized partial derivative) for a single dimension."""
+    return np.abs((y_plus - y_minus) * x_col_values / (2 * delta * y_ref))
 
 def run_smoothness_test(
     model,
@@ -74,8 +83,8 @@ def run_smoothness_test(
         y_minus = model.predict(x_minus)
 
         # MaximumRelativeErrorRatio: |(dy * x_j) / (2 * delta * y_ref)|
-        results_arr[:, j] = np.abs(
-            (y_plus - y_minus) * x_subset[col].values / (2 * delta * y_ref)
+        results_arr[:, j] = _calculate_relative_error_ratio(
+            y_plus, y_minus, x_subset[col].values, delta, y_ref
         )
 
     max_ratio = float(np.max(results_arr))
