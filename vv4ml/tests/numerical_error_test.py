@@ -5,7 +5,7 @@ from vv4ml.verification.numerical_error import max_std_var
 
 
 class TestNumericalError(unittest.TestCase):
-    """Unit tests focused on the mathematical components of the numerical error module."""
+    """Test class for numerical error module"""
 
     def test_max_std_var_homogeneous_spread(self):
         """Case 1: Standard 2D array where all rows have an identical standard deviation."""
