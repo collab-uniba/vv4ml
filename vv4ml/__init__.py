@@ -24,6 +24,10 @@ from vv4ml.config import (
 )
 from vv4ml.utils import (
     mean_relative_error,
+    mean_absolute_error,
+    max_absolute_error,
+    max_relative_error,
+    METRICS_REGISTRY,
     recreate_model,
 )
 from vv4ml.verification import (
@@ -63,6 +67,10 @@ __all__ = [
     "load_config",
     "recreate_model",
     "mean_relative_error",
+    "mean_absolute_error",
+    "max_relative_error",
+    "max_absolute_error",
+    "METRICS_REGISTRY",
     "ConvergenceResult",
     "SmoothnessResult",
     "NumericalErrorResult",
