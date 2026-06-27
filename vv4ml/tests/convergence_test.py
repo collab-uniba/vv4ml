@@ -17,13 +17,13 @@ class TestConvergence(unittest.TestCase):
 
     def test_min_k_never_converges(self):
         """Case 2: the last error exceeds the threshold"""
-        errors = [0.5, 0.4, 0.3, 0.1]
+        errors = [0.5, 0.4, 0.3, 0.15]
         n_rows = [100, 200, 500, 1000]
         threshold = 0.1
 
         min_k, passed = _min_k(errors, n_rows, threshold)
 
-        self.assertTrue(passed)
+        self.assertFalse(passed)
         self.assertIsNone(min_k)
 
     def test_min_k_converges_midway(self):
