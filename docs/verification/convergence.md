@@ -56,7 +56,7 @@ result = run_convergence_test(
     best_params=your_model_best_parameters,
     n_rows=[500, 1000, 2500],
     threshold=0.01,
-    random_state=42
+    metric=your_metric
 )
 
 print(f"Convergence Test Passed: {result.passed}")
