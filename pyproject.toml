@@ -28,6 +28,7 @@ dev = [
     "mkdocs",
     "mkdocstrings[python]>=0.18",
     "mathjax",
+    "pytest>=9.1.1",
 ]
 
 [[tool.uv.index]]
