@@ -6,7 +6,7 @@
 ![Project Version](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fcollab-uniba%2Fvv4ml%2Fmain%2Fpyproject.toml&query=%24.project.version&style=for-the-badge&label=COLLAB&labelColor=yellow&color=%23284169)
 
 **vv4ml** is the verification and validation library for your machine learning models and
-simulations.
+simulations. vv4ml is particular useful for predictors in medical systems.
 
 It offers tools for performing tests that assess credibility.
 
@@ -20,4 +20,15 @@ In particular:
 
 ## Get started
 
-Refer to the [Read the Docs guide here]()
+Refer to the [Read the Docs guide here]() where you will find everything you need.
+
+For a quick try look at the [jupyter notebook]().
+
+## Install
+
+See the [installation page]() for further information.
+
+You can quickly install vv4ml with:
+```bash
+pip install vv4ml
+```
