@@ -8,6 +8,7 @@ Classifier: Operating System :: OS Independent
 Requires-Python: >=3.12
 Description-Content-Type: text/markdown
 Requires-Dist: catboost>=1.2.10
+Requires-Dist: ipykernel>=7.3.0
 Requires-Dist: mlflow-skinny>=3.12.0
 Requires-Dist: numpy>=2.4.4
 Requires-Dist: pandas>=3.0.2
