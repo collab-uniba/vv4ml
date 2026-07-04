@@ -12,23 +12,33 @@ It offers tools for performing tests that assess credibility.
 
 In particular:
 
-- Fundamental verification tests
-- A useful Latin hypercube sampling method
-- Tools for performing metrics like RMSE, MRE and so on
-- A convenient YAML configuration file parser and loader
-- A convenient YAML configuration file validator with `PyDantic` models
+- Fundamental verification tests: that's to say `convergence`, `smoothness` and `numerical error` test) which handle the credibility of your model
+- A useful Latin hypercube sampling method: it has available a `base` and `maximin` optimization method
+- Different metrics: `MeanRelativeError`, `MeanAbsoluteError`, `MaximumRelativeError`, `MaximumAbsoluteError`
+- YAML parser and loader: a convenient configuration file parser and loader for your model card document
+- `Pydantic` models: most of the project is Pydantic structured whose models are validated at runtime
 
 ## Get started
 
 Refer to the [Read the Docs guide here]() where you will find everything you need.
 
-For a quick try look at the [jupyter notebook]().
+For a general overlook check the [index](docs/index.md).
+
+For a quick try look at the [Jupyter notebook](vv4ml_quickstart.ipynb).
 
 ## Install
 
-See the [installation page]() for further information.
+See the [installation page](docs/install.md) for further information.
 
 You can quickly install vv4ml with:
 ```bash
 pip install vv4ml
 ```
+
+## Contributing
+
+TBA
+
+## License
+
+TBA
