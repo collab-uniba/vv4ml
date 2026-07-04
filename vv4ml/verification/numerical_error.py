@@ -21,7 +21,7 @@ class NumericalErrorResult(Result):
 def max_std_var(a: np.ndarray) -> float:
     """Compute the maximum standard deviation (variance) over an n-dimensional array"""
     if len(a) > 0:
-        return np.max(np.std(a, ddof=1, axis=1))
+        return np.max(np.std(a, ddof=1, axis=0))
     else:
         raise Exception("Can't compute max variance across empty array")
 
@@ -71,8 +71,9 @@ def run_numerical_error_test(
         )
         x_subset = x_train.iloc[current_train_rows]
         y_subset = y_train.iloc[current_train_rows]
+        y_subset_1d = np.asarray(y_subset).ravel()
         fresh_model = recreate_model(model_type, best_params, random_state)
-        fresh_model.fit(x_subset, y_subset)
+        fresh_model.fit(x_subset, y_subset_1d)
         subset_predictions = fresh_model.predict(x_eval)
         predictions.append(subset_predictions)
 
