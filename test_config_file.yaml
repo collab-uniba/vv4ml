@@ -1,6 +1,6 @@
 dataset:
   name: "synthetic_dataset"
-  path: "mock_data.csv"
+  path: ""
   source: "sklearn_generator"
   provenance: "vv4ml"
   version: "1.0.0"
