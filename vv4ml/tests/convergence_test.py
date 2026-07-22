@@ -1,6 +1,7 @@
 import unittest
 from vv4ml.verification.convergence import _min_k
 
+
 class TestConvergence(unittest.TestCase):
     """Test class for convergence module"""
 
@@ -48,7 +49,9 @@ class TestConvergence(unittest.TestCase):
         min_k, converged = _min_k(errors, n_rows, threshold)
 
         self.assertTrue(converged)
-        self.assertEqual(min_k, 400)  # It must be n_rows[3], where the error goes and keeps below the threshold
+        self.assertEqual(
+            min_k, 400
+        )  # It must be n_rows[3], where the error goes and keeps below the threshold
 
     def test_min_k_exact_threshold_edge_case(self):
         """Case 5: Bound value. The error corresponds to the threshold"""

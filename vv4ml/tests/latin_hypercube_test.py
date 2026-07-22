@@ -2,12 +2,18 @@ import unittest
 from dataclasses import dataclass
 import numpy as np
 import pandas as pd
-from vv4ml.utils.latin_hypercube import _lh_basic, _lh_maximin, lh_gen, generate_lhs_samples
+from vv4ml.utils.latin_hypercube import (
+    _lh_basic,
+    _lh_maximin,
+    lh_gen,
+    generate_lhs_samples,
+)
 
 
 @dataclass
 class MockInputField:
     """Minimal mock to mimic the behaviour of vv4ml.config.InputField without its dependencies."""
+
     name: str
     range: tuple[float, float]
 
@@ -61,7 +67,7 @@ class TestLatinHypercubeSampling(unittest.TestCase):
         # Setup mock fields representing asymmetric real-world bounds
         mock_inputs = [
             MockInputField(name="feature_alpha", range=(-10.0, 10.0)),
-            MockInputField(name="feature_beta", range=(100.0, 200.0))
+            MockInputField(name="feature_beta", range=(100.0, 200.0)),
         ]
         sample_size = 20
 
