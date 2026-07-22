@@ -1,7 +1,0 @@
-README.md
-pyproject.toml
-vv4ml.egg-info/PKG-INFO
-vv4ml.egg-info/SOURCES.txt
-vv4ml.egg-info/dependency_links.txt
-vv4ml.egg-info/requires.txt
-vv4ml.egg-info/top_level.txt

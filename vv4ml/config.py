@@ -9,6 +9,8 @@ from typing import Literal
 from pydantic import BaseModel, Field, field_validator, model_validator
 from pydantic_yaml import parse_yaml_raw_as
 
+from vv4ml.utils.metrics import MetricName
+
 # =============================================================================
 # Dataset Configuration Models
 # =============================================================================
@@ -78,15 +80,7 @@ class DatasetConfig(BaseModel):
 # Gate Thresholds Configuration Models
 # =============================================================================
 
-MetricType = Literal[
-    "MaximumAbsoluteError",
-    "MeanRelativeError",
-    "MaximumRelativeErrorRatio",
-    "StandardDeviation",
-    "RMSE",
-    "PercentageRMSE",
-    "MaxStandardDeviation",
-]
+MetricType = MetricName
 
 
 class ThresholdCriterion(BaseModel):
