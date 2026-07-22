@@ -1,5 +1,7 @@
 """Custom scorers and evaluation metrics for model training."""
 
+from typing import Callable, Literal
+
 import numpy as np
 from numpy.typing import ArrayLike
 
@@ -139,9 +141,21 @@ def max_std_dev(y_pred: ArrayLike, y_ref: ArrayLike) -> float:
 # Metrics Registry
 # =============================================================================
 
+MetricName = Literal[
+    "MeanRelativeError",
+    "MaximumRelativeError",
+    "MeanAbsoluteError",
+    "MaximumAbsoluteError",
+    "RMSE",
+    "PercentageRMSE",
+    "StandardDeviation",
+    "MaxStandardDeviation",
+]
+"""Names accepted by the public metric registry and configuration models."""
+
 # This dictionary maps the available metrics strings directly
 # to their respective mathematical functions.
-METRICS_REGISTRY = {
+METRICS_REGISTRY: dict[MetricName, Callable[[ArrayLike, ArrayLike], float]] = {
     "MeanRelativeError": mean_relative_error,
     "MaximumRelativeError": max_relative_error,
     "MeanAbsoluteError": mean_absolute_error,
