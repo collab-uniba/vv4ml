@@ -18,8 +18,8 @@ class NumericalErrorResult(Result):
     threshold: float
 
 
-def max_std_var(a: np.ndarray) -> float:
-    """Compute the maximum standard deviation (variance) over an n-dimensional array"""
+def _max_std_dev_along_axis(a: np.ndarray) -> float:
+    """Compute the maximum standard deviation over an n-dimensional array"""
     if len(a) > 0:
         return np.max(np.std(a, ddof=1, axis=0))
     else:
@@ -77,7 +77,7 @@ def run_numerical_error_test(
         subset_predictions = fresh_model.predict(x_eval)
         predictions.append(subset_predictions)
 
-    max_variance = max_std_var(np.array(predictions))
+    max_variance = _max_std_dev_along_axis(np.array(predictions))
     passed = max_variance <= threshold
 
     return NumericalErrorResult(

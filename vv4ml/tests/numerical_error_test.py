@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from vv4ml.verification.numerical_error import max_std_var
+from vv4ml.verification.numerical_error import _max_std_dev_along_axis
 
 
 class TestNumericalError(unittest.TestCase):
@@ -13,7 +13,7 @@ class TestNumericalError(unittest.TestCase):
             [4.0, 5.0, 6.0]
         ])
 
-        result = max_std_var(array_data)
+        result = _max_std_dev_along_axis(array_data)
 
         # Using assertAlmostEqual to safely handle floating-point precision
         self.assertAlmostEqual(result, 1.0, places=5)
@@ -25,7 +25,7 @@ class TestNumericalError(unittest.TestCase):
             [1.0, 5.0, 9.0]
         ])
 
-        result = max_std_var(array_data)
+        result = _max_std_dev_along_axis(array_data)
 
         self.assertAlmostEqual(result, 4.0, places=5)
 
@@ -36,7 +36,7 @@ class TestNumericalError(unittest.TestCase):
             [5.0, 5.0, 5.0]
         ])
 
-        result = max_std_var(array_data)
+        result = _max_std_dev_along_axis(array_data)
 
         self.assertAlmostEqual(result, 0.0, places=5)
 
@@ -45,7 +45,7 @@ class TestNumericalError(unittest.TestCase):
         empty_array = np.array([])
 
         with self.assertRaises(Exception) as context:
-            max_std_var(empty_array)
+            _max_std_dev_along_axis(empty_array)
 
         self.assertEqual(
             str(context.exception),
