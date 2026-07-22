@@ -4,8 +4,12 @@ from vv4ml.utils.metrics import (
     METRICS_REGISTRY,
     max_absolute_error,
     max_relative_error,
+    max_std_dev,
     mean_absolute_error,
     mean_relative_error,
+    rmse,
+    rmspe,
+    std_dev,
 )
 
 
@@ -53,6 +57,32 @@ class TestMetrics(unittest.TestCase):
         result = max_absolute_error(self.y_pred, self.y_ref)
         self.assertAlmostEqual(result, 5.0, places=5)
 
+    def test_rmse(self):
+        """Verify Root Mean Squared Error calculation.
+
+        Expected: sqrt((1.0^2 + 1.0^2 + 5.0^2) / 3) = 3.0
+        """
+        result = rmse(self.y_pred, self.y_ref)
+        self.assertAlmostEqual(result, 3.0, places=5)
+
+    def test_rmspe(self):
+        """Verify Root Mean Squared Percentage Error calculation.
+
+        Expected: sqrt(((1/10)^2 + (-1/20)^2 + (-5/50)^2) / 3) = 0.08660...
+        """
+        result = rmspe(self.y_pred, self.y_ref)
+        self.assertAlmostEqual(result, 0.08660254, places=5)
+
+    def test_std_dev(self):
+        """Verify sample standard deviation of prediction-reference differences."""
+        result = std_dev(self.y_pred, self.y_ref)
+        self.assertAlmostEqual(result, 3.05505046, places=5)
+
+    def test_max_std_dev(self):
+        """Verify maximum standard deviation of prediction-reference differences."""
+        result = max_std_dev(self.y_pred, self.y_ref)
+        self.assertAlmostEqual(result, 3.05505046, places=5)
+
     def test_metrics_with_perfect_predictions(self):
         """Edge case: Verify that all metrics evaluate to exactly 0.0 when predictions match reference."""
         identical_ref = np.array([1.5, 2.5, 3.5])
@@ -62,6 +92,10 @@ class TestMetrics(unittest.TestCase):
         self.assertEqual(max_relative_error(identical_pred, identical_ref), 0.0)
         self.assertEqual(mean_absolute_error(identical_pred, identical_ref), 0.0)
         self.assertEqual(max_absolute_error(identical_pred, identical_ref), 0.0)
+        self.assertEqual(rmse(identical_pred, identical_ref), 0.0)
+        self.assertEqual(rmspe(identical_pred, identical_ref), 0.0)
+        self.assertEqual(std_dev(identical_pred, identical_ref), 0.0)
+        self.assertEqual(max_std_dev(identical_pred, identical_ref), 0.0)
 
     def test_metrics_registry_mapping(self):
         """Verify that the METRICS_REGISTRY dictionary maps keys to the exact function references."""
@@ -69,6 +103,10 @@ class TestMetrics(unittest.TestCase):
         self.assertIs(METRICS_REGISTRY["MaximumRelativeError"], max_relative_error)
         self.assertIs(METRICS_REGISTRY["MeanAbsoluteError"], mean_absolute_error)
         self.assertIs(METRICS_REGISTRY["MaximumAbsoluteError"], max_absolute_error)
+        self.assertIs(METRICS_REGISTRY["RMSE"], rmse)
+        self.assertIs(METRICS_REGISTRY["PercentageRMSE"], rmspe)
+        self.assertIs(METRICS_REGISTRY["StandardDeviation"], std_dev)
+        self.assertIs(METRICS_REGISTRY["MaxStandardDeviation"], max_std_dev)
 
 
 if __name__ == "__main__":
