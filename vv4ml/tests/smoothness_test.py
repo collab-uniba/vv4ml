@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from vv4ml.verification.smoothness import _calculate_relative_error_ratio
+from vv4ml.verification.smoothness import _rel_err_ratio
 
 
 class TestSmoothness(unittest.TestCase):
@@ -14,7 +14,7 @@ class TestSmoothness(unittest.TestCase):
         delta = 0.5
         y_ref = np.array([10.0])
 
-        result = _calculate_relative_error_ratio(y_plus, y_minus, x_col_values, delta, y_ref)
+        result = _rel_err_ratio(y_plus, y_minus, x_col_values, delta, y_ref)
 
         self.assertAlmostEqual(result[0], 1.0, places=5)
 
@@ -26,7 +26,7 @@ class TestSmoothness(unittest.TestCase):
         delta = 0.1
         y_ref = np.array([10.0, 15.0])
 
-        result = _calculate_relative_error_ratio(y_plus, y_minus, x_col_values, delta, y_ref)
+        result = _rel_err_ratio(y_plus, y_minus, x_col_values, delta, y_ref)
 
         np.testing.assert_array_almost_equal(result, np.array([0.0, 0.0]), decimal=5)
 
