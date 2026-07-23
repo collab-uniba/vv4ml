@@ -4,6 +4,7 @@ from vv4ml.utils.metrics import (
     max_absolute_error,
     max_relative_error,
     METRICS_REGISTRY,
+    MetricName,
 )
 from vv4ml.utils.model_factory import (
     recreate_model,
@@ -16,4 +17,5 @@ __all__ = [
     "max_relative_error",
     "max_absolute_error",
     "METRICS_REGISTRY",
+    "MetricName",
 ]

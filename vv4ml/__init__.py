@@ -23,6 +23,7 @@ from vv4ml.config import (
     load_config,
 )
 from vv4ml.utils import (
+    MetricName,
     mean_relative_error,
     mean_absolute_error,
     max_absolute_error,
@@ -49,6 +50,7 @@ __all__ = [
     "OutputField",
     "DatasetConfig",
     "MetricType",
+    "MetricName",
     "ThresholdCriterion",
     "VerificationThresholds",
     "GateThresholds",

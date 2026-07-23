@@ -1,13 +1,13 @@
 """Convergence test for verifying model stability across training set sizes."""
 
 from dataclasses import dataclass
-from typing import Literal, Callable
+from typing import Callable
 
 import numpy as np
 import pandas as pd
 from numpy.typing import ArrayLike
 
-from vv4ml.utils.metrics import METRICS_REGISTRY
+from vv4ml.utils.metrics import METRICS_REGISTRY, MetricName
 from vv4ml.utils.model_factory import recreate_model
 from vv4ml.verification.base_result import Result
 
@@ -104,12 +104,7 @@ def run_convergence_test(
     best_params: dict,
     n_rows: list[int],
     threshold: float,
-    metric: Literal[
-        "MeanRelativeError",
-        "MaximumRelativeError",
-        "MeanAbsoluteError",
-        "MaximumAbsoluteError",
-    ],
+    metric: MetricName,
 ) -> ConvergenceResult:
     """Run the convergence test for a single output/model combination.
 
