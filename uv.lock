@@ -2145,7 +2145,7 @@ wheels = [
 
 [[package]]
 name = "vv4ml"
-version = "0.1.9"
+version = "1.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "catboost" },
