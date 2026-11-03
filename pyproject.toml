@@ -1,6 +1,6 @@
 [project]
 name = "vv4ml"
-version = "1.0.2"
+version = "1.0.3"
 requires-python = ">=3.12"
 authors = [
     { name = "Cristiano Epifania", email = "c.epifania5@studenti.uniba.it" }
