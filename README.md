@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="logo/vv4ml-logo-icon.png" width="350" alt="logo">
+    <img src="[logo/vv4ml-logo-icon.png](https://raw.githubusercontent.com/collab-uniba/vv4ml/refs/heads/main/logo/vv4ml-logo-icon.png)" width="350" alt="logo">
 </h1><br>
 
 ![Python Version](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fcollab-uniba%2Fvv4ml%2Fmain%2Fpyproject.toml&query=%24.project.requires-python&style=for-the-badge&label=py_ver)
