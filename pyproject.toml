@@ -1,6 +1,6 @@
 [project]
 name = "vv4ml"
-version = "1.0.0"
+version = "1.0.1"
 requires-python = ">=3.12"
 authors = [
     { name = "Cristiano Epifania", email = "c.epifania5@studenti.uniba.it" }
@@ -30,6 +30,7 @@ dev = [
     "mkdocstrings[python]>=0.18",
     "mathjax",
     "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
 ]
 
 [[tool.uv.index]]
@@ -45,5 +46,7 @@ select = ["E", "F", "W", "Q", "I", "N"]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-py-modules = ["vv4ml"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["vv4ml*"]
+exclude = ["vv4ml.tests*"]
