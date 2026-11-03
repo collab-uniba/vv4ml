@@ -270,7 +270,7 @@ def _use_all_cores(model) -> None:
         est.set_params(n_jobs=-1)
 
 
-def stage_verify(cfg, X, Y, out: Path, n_seeds: int):
+def stage_verify(cfg, X, Y, out: Path, n_seeds: int, select: str | None = None):
     tr = np.load(out / "train_idx.npy")
     te = np.load(out / "test_idx.npy")
     sel = pd.read_csv(out / "model_selection.csv")
@@ -293,11 +293,14 @@ def stage_verify(cfg, X, Y, out: Path, n_seeds: int):
     )
 
     for output in Y.columns:
-        odir = vdir / output
+        odir = vdir / (output if select is None else f"{output}__{select}")
         if (odir / "report.json").exists():
-            log(f"skip verification {output} (done)")
+            log(f"skip verification {odir.name} (done)")
             continue
-        best = sel[sel.output == output].sort_values("RMSE").iloc[0]
+        cand = sel[sel.output == output]
+        if select is not None:
+            cand = cand[cand.model == select]
+        best = cand.sort_values("RMSE").iloc[0]
         mdir = out / "models" / output / best.model
         meta = json.loads((mdir / "metrics.json").read_text())
         model = joblib.load(mdir / "model.joblib")
@@ -401,6 +404,7 @@ def main():
     ap.add_argument("--n-jobs", type=int, default=-1)
     ap.add_argument("--n-seeds", type=int, default=5, help="seeds for the convergence curve")
     ap.add_argument("--eval-samples", type=int, help="override N_D (for quick tests)")
+    ap.add_argument("--select", help="verify this model type instead of the lowest-RMSE one")
     a = ap.parse_args()
 
     cfg = vv4ml.load_config(a.config)
@@ -414,7 +418,7 @@ def main():
     if a.stage in ("train", "all"):
         stage_train(cfg, X, Y, out, a.models, a.n_jobs)
     if a.stage in ("verify", "all"):
-        stage_verify(cfg, X, Y, out, a.n_seeds)
+        stage_verify(cfg, X, Y, out, a.n_seeds, a.select)
     log("done")
 
 
