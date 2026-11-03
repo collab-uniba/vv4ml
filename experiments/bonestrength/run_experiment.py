@@ -256,6 +256,17 @@ def stage_train(cfg, X, Y, out: Path, models: list[str] | None, n_jobs: int):
 # ------------------------------------------------------------------- verification
 
 
+def _use_all_cores(model) -> None:
+    """Models are fitted single-threaded inside the parallel search; use all
+    cores for the (very large) number of predictions required by verification."""
+    est = model.steps[-1][1] if isinstance(model, Pipeline) else model
+    params = est.get_params()
+    if "n_jobs" in params:
+        est.set_params(n_jobs=-1)
+    if "thread_count" in params:
+        est.set_params(thread_count=-1)
+
+
 def stage_verify(cfg, X, Y, out: Path, n_seeds: int):
     tr = np.load(out / "train_idx.npy")
     te = np.load(out / "test_idx.npy")
@@ -287,6 +298,7 @@ def stage_verify(cfg, X, Y, out: Path, n_seeds: int):
         mdir = out / "models" / output / best.model
         meta = json.loads((mdir / "metrics.json").read_text())
         model = joblib.load(mdir / "model.joblib")
+        _use_all_cores(model)
         params = meta["best_params"]
         log(f"verify {output} with {best.model}")
 
