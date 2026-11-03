@@ -97,12 +97,27 @@ class VerificationThresholds(BaseModel):
     convergence: list[ThresholdCriterion] = Field(default_factory=list)
     smoothness: list[ThresholdCriterion] = Field(default_factory=list)
     numerical_error: list[ThresholdCriterion] = Field(default_factory=list)
+    existence: list[ThresholdCriterion] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def check_metrics(self) -> "VerificationThresholds":
+        """Reject gate metrics that the corresponding test cannot evaluate."""
+        from vv4ml.utils.metrics import TEST_METRICS
+
+        for test in ("convergence", "smoothness", "numerical_error", "existence"):
+            for crit in getattr(self, test):
+                if crit.metric not in TEST_METRICS[test]:
+                    raise ValueError(
+                        f"metric {crit.metric!r} is not supported by the {test} "
+                        f"test (allowed: {', '.join(TEST_METRICS[test])})"
+                    )
+        return self
 
 
 class GateThresholds(BaseModel):
     """Gate thresholds for validation and verification."""
 
-    validation: list[ThresholdCriterion]
+    validation: list[ThresholdCriterion] = Field(default_factory=list)
     verification: VerificationThresholds
 
 
@@ -118,9 +133,24 @@ class ConvergenceTestConfig(BaseModel):
 
 
 class ExistenceTestConfig(BaseModel):
-    """Existence test configuration."""
+    """Existence test configuration.
 
-    samples: int
+    The existence test is evaluated on the shared evaluation dataset; ``samples``
+    is retained for backward compatibility and is used only when no
+    ``evaluation_dataset`` block is provided.
+    """
+
+    samples: int | None = None
+    max_violations: int = 0
+
+
+class EvaluationDatasetConfig(BaseModel):
+    """Evaluation dataset D shared by all verification tests."""
+
+    samples: int = Field(gt=0)
+    optimization: Literal["maximin"] | None = None
+    iter_num: int = Field(default=5, gt=0)
+    random_state: int = 42
 
 
 class SmoothnessTestConfig(BaseModel):
@@ -128,6 +158,7 @@ class SmoothnessTestConfig(BaseModel):
 
     sample_fraction: float = Field(gt=0, le=1)
     perturbation_scaled_magnitude: float
+    normalization: Literal["value", "range"] = "value"
 
 
 class NumericalErrorTestConfig(BaseModel):
@@ -137,12 +168,17 @@ class NumericalErrorTestConfig(BaseModel):
 
 
 class VerificationTestConfig(BaseModel):
-    """Verification test configurations."""
+    """Verification test configurations.
 
-    convergence: ConvergenceTestConfig
-    existence: ExistenceTestConfig
-    smoothness: SmoothnessTestConfig
-    numerical_error: NumericalErrorTestConfig
+    Each test block is optional: tests whose block is omitted are skipped by
+    :func:`vv4ml.verification.run_verification`.
+    """
+
+    evaluation_dataset: EvaluationDatasetConfig | None = None
+    convergence: ConvergenceTestConfig | None = None
+    existence: ExistenceTestConfig | None = None
+    smoothness: SmoothnessTestConfig | None = None
+    numerical_error: NumericalErrorTestConfig | None = None
 
 
 class TestConfigurations(BaseModel):

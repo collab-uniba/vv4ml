@@ -1,0 +1,999 @@
+# VV4ML configuration for the BoneStrengthML case study.
+# Acceptance criteria derived from the BoneStrengthML Context of Use
+# (collab-uniba/BoneStrengthML-SF3_application, docs/Context_of_use.md):
+#  - evaluation dataset: >= 1e6 LHS samples over the 95-dimensional input domain
+#  - existence: predictions within the admissible strain ranges
+#  - convergence: mean relative error <= 5% w.r.t. the fully trained model
+#  - numerical error: point-wise SD <= 5.1 / 7.3 microstrain, >= 10 repetitions
+#  - smoothness: 40% of D, perturbation 1/1000 of range, ratio <= 1
+#  - validation: max absolute error <= 51 / 73 microstrain
+dataset:
+  name: BoneStrengthML-dataset
+  path: data/sampleDataset.csv
+  source: Published dataset used for BoneStrength surrogate model
+  provenance: collab-uniba/BoneStrengthML-SF3_application (data/raw/sampleDataset.csv)
+  version: v1
+  file_format: CSV
+  format_metadata:
+    delimiter: ;
+    decimal_separator: .
+    header_lines: 1
+    encoding: UTF-8
+  inputs:
+  - name: PC_1
+    data_type: float
+    range:
+    - -1877424.1
+    - 1877424.1
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_2
+    data_type: float
+    range:
+    - -922418.6
+    - 922418.6
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_3
+    data_type: float
+    range:
+    - -685300.0
+    - 685300.0
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_4
+    data_type: float
+    range:
+    - -636431.1
+    - 636431.1
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_5
+    data_type: float
+    range:
+    - -623641.0
+    - 623641.0
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_6
+    data_type: float
+    range:
+    - -523508.9
+    - 523508.9
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_7
+    data_type: float
+    range:
+    - -458088.4
+    - 458088.4
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_8
+    data_type: float
+    range:
+    - -430484.4
+    - 430484.4
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_9
+    data_type: float
+    range:
+    - -410948.0
+    - 410948.0
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_10
+    data_type: float
+    range:
+    - -389481.8
+    - 389481.8
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_11
+    data_type: float
+    range:
+    - -360988.1
+    - 360988.1
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_12
+    data_type: float
+    range:
+    - -355623.4
+    - 355623.4
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_13
+    data_type: float
+    range:
+    - -341841.4
+    - 341841.4
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_14
+    data_type: float
+    range:
+    - -340604.5
+    - 340604.5
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_15
+    data_type: float
+    range:
+    - -331022.1
+    - 331022.1
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_16
+    data_type: float
+    range:
+    - -326394.9
+    - 326394.9
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_17
+    data_type: float
+    range:
+    - -314704.9
+    - 314704.9
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_18
+    data_type: float
+    range:
+    - -311228.9
+    - 311228.9
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_19
+    data_type: float
+    range:
+    - -304863.7
+    - 304863.7
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_20
+    data_type: float
+    range:
+    - -293960.6
+    - 293960.6
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_21
+    data_type: float
+    range:
+    - -289030.5
+    - 289030.5
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_22
+    data_type: float
+    range:
+    - -286197.3
+    - 286197.3
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_23
+    data_type: float
+    range:
+    - -280411.0
+    - 280411.0
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_24
+    data_type: float
+    range:
+    - -272150.5
+    - 272150.5
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_25
+    data_type: float
+    range:
+    - -271561.9
+    - 271561.9
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_26
+    data_type: float
+    range:
+    - -266848.4
+    - 266848.4
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_27
+    data_type: float
+    range:
+    - -262433.1
+    - 262433.1
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_28
+    data_type: float
+    range:
+    - -259393.7
+    - 259393.7
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_29
+    data_type: float
+    range:
+    - -255467.5
+    - 255467.5
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_30
+    data_type: float
+    range:
+    - -251178.6
+    - 251178.6
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_31
+    data_type: float
+    range:
+    - -244803.9
+    - 244803.9
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_32
+    data_type: float
+    range:
+    - -244012.6
+    - 244012.6
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_33
+    data_type: float
+    range:
+    - -240178.2
+    - 240178.2
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_34
+    data_type: float
+    range:
+    - -237010.1
+    - 237010.1
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_35
+    data_type: float
+    range:
+    - -235762.4
+    - 235762.4
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_36
+    data_type: float
+    range:
+    - -234796.3
+    - 234796.3
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_37
+    data_type: float
+    range:
+    - -232349.8
+    - 232349.8
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_38
+    data_type: float
+    range:
+    - -231317.7
+    - 231317.7
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_39
+    data_type: float
+    range:
+    - -229454.8
+    - 229454.8
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_40
+    data_type: float
+    range:
+    - -226990.6
+    - 226990.6
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_41
+    data_type: float
+    range:
+    - -223801.4
+    - 223801.4
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_42
+    data_type: float
+    range:
+    - -223029.2
+    - 223029.2
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_43
+    data_type: float
+    range:
+    - -218876.3
+    - 218876.3
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_44
+    data_type: float
+    range:
+    - -216667.0
+    - 216667.0
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_45
+    data_type: float
+    range:
+    - -214082.3
+    - 214082.3
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_46
+    data_type: float
+    range:
+    - -211707.3
+    - 211707.3
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_47
+    data_type: float
+    range:
+    - -211211.9
+    - 211211.9
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_48
+    data_type: float
+    range:
+    - -209018.3
+    - 209018.3
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_49
+    data_type: float
+    range:
+    - -206264.3
+    - 206264.3
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_50
+    data_type: float
+    range:
+    - -204106.4
+    - 204106.4
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_51
+    data_type: float
+    range:
+    - -202769.9
+    - 202769.9
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_52
+    data_type: float
+    range:
+    - -202444.5
+    - 202444.5
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_53
+    data_type: float
+    range:
+    - -200289.1
+    - 200289.1
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_54
+    data_type: float
+    range:
+    - -199180.8
+    - 199180.8
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_55
+    data_type: float
+    range:
+    - -196290.8
+    - 196290.8
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_56
+    data_type: float
+    range:
+    - -195245.1
+    - 195245.1
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_57
+    data_type: float
+    range:
+    - -192917.6
+    - 192917.6
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_58
+    data_type: float
+    range:
+    - -192591.5
+    - 192591.5
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_59
+    data_type: float
+    range:
+    - -190016.1
+    - 190016.1
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_60
+    data_type: float
+    range:
+    - -187921.2
+    - 187921.2
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_61
+    data_type: float
+    range:
+    - -186723.1
+    - 186723.1
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_62
+    data_type: float
+    range:
+    - -184999.0
+    - 184999.0
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_63
+    data_type: float
+    range:
+    - -183738.9
+    - 183738.9
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_64
+    data_type: float
+    range:
+    - -181716.5
+    - 181716.5
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_65
+    data_type: float
+    range:
+    - -181197.3
+    - 181197.3
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_66
+    data_type: float
+    range:
+    - -179509.9
+    - 179509.9
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_67
+    data_type: float
+    range:
+    - -177456.2
+    - 177456.2
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_68
+    data_type: float
+    range:
+    - -176575.1
+    - 176575.1
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_69
+    data_type: float
+    range:
+    - -175297.3
+    - 175297.3
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_70
+    data_type: float
+    range:
+    - -173853.9
+    - 173853.9
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_71
+    data_type: float
+    range:
+    - -172056.2
+    - 172056.2
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_72
+    data_type: float
+    range:
+    - -169217.3
+    - 169217.3
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_73
+    data_type: float
+    range:
+    - -168395.3
+    - 168395.3
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_74
+    data_type: float
+    range:
+    - -166228.9
+    - 166228.9
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_75
+    data_type: float
+    range:
+    - -164178.5
+    - 164178.5
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_76
+    data_type: float
+    range:
+    - -162637.3
+    - 162637.3
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_77
+    data_type: float
+    range:
+    - -160869.2
+    - 160869.2
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_78
+    data_type: float
+    range:
+    - -159866.5
+    - 159866.5
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_79
+    data_type: float
+    range:
+    - -158280.1
+    - 158280.1
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_80
+    data_type: float
+    range:
+    - -157000.1
+    - 157000.1
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_81
+    data_type: float
+    range:
+    - -154190.8
+    - 154190.8
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_82
+    data_type: float
+    range:
+    - -153457.4
+    - 153457.4
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_83
+    data_type: float
+    range:
+    - -151529.7
+    - 151529.7
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_84
+    data_type: float
+    range:
+    - -150373.0
+    - 150373.0
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_85
+    data_type: float
+    range:
+    - -148516.1
+    - 148516.1
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_86
+    data_type: float
+    range:
+    - -144273.1
+    - 144273.1
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_87
+    data_type: float
+    range:
+    - -141985.7
+    - 141985.7
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_88
+    data_type: float
+    range:
+    - -141018.5
+    - 141018.5
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_89
+    data_type: float
+    range:
+    - -138445.2
+    - 138445.2
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_90
+    data_type: float
+    range:
+    - -133243.1
+    - 133243.1
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_91
+    data_type: float
+    range:
+    - -128712.3
+    - 128712.3
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_92
+    data_type: float
+    range:
+    - -111068.8
+    - 111068.8
+    units: adimensional
+    missing_values_allowed: false
+  - name: PC_93
+    data_type: float
+    range:
+    - -96543.8
+    - 96543.8
+    units: adimensional
+    missing_values_allowed: false
+  - name: PosAnt
+    data_type: int
+    range:
+    - -30
+    - 30
+    units: degrees
+    missing_values_allowed: false
+  - name: MedLat
+    data_type: int
+    range:
+    - -30
+    - 0
+    units: degrees
+    missing_values_allowed: false
+  outputs:
+  - name: maxStrain_11
+    data_type: float
+    range:
+    - 0
+    - 0.008
+    units: adimensional
+    missing_values_allowed: false
+  - name: maxStrain_33
+    data_type: float
+    range:
+    - 0
+    - 0.03
+    units: adimensional
+    missing_values_allowed: false
+  duplicate_rows: true
+gate_thresholds:
+  validation:
+  - field: maxStrain_11
+    metric: MaximumAbsoluteError
+    value: 5.1e-05
+  - field: maxStrain_33
+    metric: MaximumAbsoluteError
+    value: 7.3e-05
+  verification:
+    existence:
+    - field: maxStrain_11
+      metric: OutOfRangeCount
+      value: 0
+    - field: maxStrain_33
+      metric: OutOfRangeCount
+      value: 0
+    convergence:
+    - field: maxStrain_11
+      metric: MeanRelativeError
+      value: 0.05
+    - field: maxStrain_33
+      metric: MeanRelativeError
+      value: 0.05
+    numerical_error:
+    - field: maxStrain_11
+      metric: MaxStandardDeviation
+      value: 5.1e-06
+    - field: maxStrain_33
+      metric: MaxStandardDeviation
+      value: 7.3e-06
+    smoothness:
+    - field: maxStrain_11
+      metric: MaximumRelativeErrorRatio
+      value: 1.0
+    - field: maxStrain_33
+      metric: MaximumRelativeErrorRatio
+      value: 1.0
+test_configurations:
+  verification:
+    evaluation_dataset:
+      samples: 1000000
+      optimization: null
+      random_state: 42
+    existence:
+      max_violations: 0
+    convergence:
+      n_rows:
+      - 100
+      - 250
+      - 500
+      - 1000
+      - 2500
+      - 5000
+      - 10000
+      - 20000
+    numerical_error:
+      sets: 10
+    smoothness:
+      sample_fraction: 0.4
+      perturbation_scaled_magnitude: 0.001
+      normalization: value
+model_development:
+  train_test_split:
+    train_fraction: 0.7
+    method: grouped
+  preprocessing:
+    normalization: false
+    standardization: false
+  optimization:
+    optimization_method: GridSearch
+    n_jobs: -1
+    cv: 5
+    scoring: neg_root_mean_squared_error
+  model_list:
+  - type: RandomForestRegressor
+    hyperparameters:
+      criterion: squared_error
+      n_estimators:
+      - 50
+      - 100
+      - 150
+      - 200
+      - 250
+      - 300
+      - 350
+      - 400
+      - 450
+      - 500
+      - 550
+      - 600
+      - 650
+      - 700
+      - 750
+      max_depth:
+      - 5
+      - 10
+      - 15
+      - 20
+      - 25
+      - 30
+      - 35
+      - 40
+      - 45
+      - 50
+      min_samples_split:
+      - 2
+      - 5
+      - 10
+      min_samples_leaf:
+      - 1
+      - 2
+      - 3
+      - 5
+    optimization:
+      feature_selection: null
+      optimization_method: RandomizedSearchCV
+      n_jobs: -1
+      cv: 5
+      scoring: neg_root_mean_squared_error
+  - type: XGBoostRegressor
+    hyperparameters:
+      objective: reg:squarederror
+      n_estimators:
+      - 100
+      - 600
+      - 1100
+      - 1600
+      - 2100
+      - 2600
+      - 3100
+      - 3600
+      - 4100
+      - 4600
+      - 5100
+      - 5600
+      - 6100
+      - 6600
+      - 7100
+      - 7600
+      max_depth:
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      learning_rate:
+      - 0.01
+      - 0.05
+      - 0.1
+      - 0.2
+      - 0.3
+      subsample:
+      - 0.1
+      - 0.2
+      - 0.5
+      - 0.8
+      - 1.0
+      colsample_bytree:
+      - 0.2
+      - 0.5
+      - 0.6
+      - 0.8
+      - 1.0
+      gamma:
+      - 0
+      - 0.1
+      - 0.2
+      - 0.3
+      - 0.4
+      - 0.5
+    optimization:
+      optimization_method: RandomizedSearchCV
+      n_jobs: -1
+      cv: 5
+      scoring: neg_root_mean_squared_error
+  - type: SupportVectorRegressor
+    hyperparameters:
+      C:
+      - 0.1
+      - 1
+      - 10
+      - 100
+      epsilon:
+      - 0.01
+      - 0.1
+      - 0.2
+      - 0.5
+      - 0.7
+      - 0.9
+      - 1
+      gamma:
+      - scale
+      - auto
+      kernel:
+      - linear
+      - rbf
+      - poly
+      degree:
+      - 2
+      - 3
+  - type: LinearRegressor
+    hyperparameters:
+      fit_intercept: true
+  - type: MLPRegressor
+    hyperparameters:
+      hidden_layer_sizes:
+      - - 50
+      - - 100
+      - - 50
+        - 50
+      activation:
+      - relu
+      - tanh
+      alpha:
+      - 0.0001
+      - 0.0005
+      - 0.001
+      - 0.005
+      - 0.01
+      learning_rate_init:
+      - 1.0e-05
+      - 0.0001
+      - 0.001
+      - 0.01
+      - 0.005
+      max_iter: 2000
+  - type: PLSRegression
+    hyperparameters:
+      n_components:
+      - 2
+      - 7
+      - 12
+      - 17
+      - 22
+      - 27
+      - 32
+      - 37
+      - 42
+      - 47
+      - 52
+      - 57
+      - 62
+      - 67
+      - 72
+      - 77
+      - 82
+      - 87
+      - 92
+      - 94
+  - type: CatBoostRegressor
+    hyperparameters:
+      iterations:
+      - 100
+      - 500
+      - 1000
+      - 1500
+      - 2000
+      - 2500
+      - 3000
+      - 5000
+      depth:
+      - 4
+      - 6
+      - 10
+      learning_rate:
+      - 0.01
+      - 0.1
+      - 0.3
+      l2_leaf_reg:
+      - 3
+      - 5
+      - 10
+      - 20
+      - 50
+      bagging_temperature:
+      - 0
+      - 0.05
+      - 0.1
+      - 0.2
+      - 0.5
+      - 1.0
+  - type: GaussianProcessRegressor
+    hyperparameters:
+      normalize_y: true
+      optimizer: fmin_l_bfgs_b
+      kernel:
+      - rbf_short
+      - rbf_unit
+      - rbf_dot_white
+      alpha:
+      - 1.0e-05
+      - 0.01
+      - 0.1
