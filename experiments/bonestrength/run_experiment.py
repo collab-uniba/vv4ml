@@ -261,10 +261,13 @@ def _use_all_cores(model) -> None:
     cores for the (very large) number of predictions required by verification."""
     est = model.steps[-1][1] if isinstance(model, Pipeline) else model
     params = est.get_params()
-    if "n_jobs" in params:
-        est.set_params(n_jobs=-1)
     if "thread_count" in params:
-        est.set_params(thread_count=-1)
+        # fitted CatBoost models are immutable: pass the thread count at predict time
+        import functools
+
+        est.predict = functools.partial(est.predict, thread_count=os.cpu_count())
+    elif "n_jobs" in params:
+        est.set_params(n_jobs=-1)
 
 
 def stage_verify(cfg, X, Y, out: Path, n_seeds: int):
