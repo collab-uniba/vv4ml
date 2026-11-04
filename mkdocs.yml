@@ -27,7 +27,7 @@ plugins:
         python:
 
           # Where to find your sources, see "Finding modules".
-          paths: [ src ]
+          paths: [ vv4ml ]
 
           # Load object inventories to enable cross-references to other projects.
           inventories:
