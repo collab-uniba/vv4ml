@@ -28,7 +28,7 @@ For a quick try look at the [Jupyter notebook](https://github.com/collab-uniba/v
 
 ## Install
 
-See the [installation page](docs/install.md) for further information.
+See the [installation page](https://github.com/collab-uniba/vv4ml/blob/main/docs/install.md) for further information.
 
 You can quickly install vv4ml with:
 ```bash
