@@ -24,7 +24,7 @@ Refer to the [Read the Docs guide here]() where you will find everything you nee
 
 For a general overlook check the [index](docs/index.md).
 
-For a quick try look at the [Jupyter notebook](vv4ml_quickstart.ipynb).
+For a quick try look at the [Jupyter notebook](https://github.com/collab-uniba/vv4ml/blob/main/vv4ml_quickstart.ipynb).
 
 ## Install
 
