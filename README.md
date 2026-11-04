@@ -22,7 +22,7 @@ In particular:
 
 Refer to the [Read the Docs guide here](https://vv4ml.readthedocs.io/en/latest/) where you will find everything you need.
 
-For a general overlook check the [index](docs/index.md).
+For a general overlook check the [index](https://github.com/collab-uniba/vv4ml/blob/main/docs/index.md).
 
 For a quick try look at the [Jupyter notebook](https://github.com/collab-uniba/vv4ml/blob/main/vv4ml_quickstart.ipynb).
 
