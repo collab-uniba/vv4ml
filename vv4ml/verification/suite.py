@@ -138,6 +138,7 @@ def run_verification(
             n_rows=sorted(vcfg.convergence.n_rows),
             threshold=gate.value,
             metric=gate.metric,
+            random_state=random_state,
         )
         report.results["convergence"] = res
         report.runtime_s["convergence"] = time.perf_counter() - t0

@@ -68,5 +68,55 @@ class TestSuite(unittest.TestCase):
         self.assertAlmostEqual(r_rng.max_error_ratio, 1.0, places=6)
 
 
+class TestConfigValidation(unittest.TestCase):
+    def _raw(self):
+        import yaml
+
+        return yaml.safe_load(CFG.read_text())
+
+    def _check(self, raw):
+        from vv4ml.config import Config
+
+        with self.assertRaises(ValidationError):
+            Config.model_validate(raw)
+
+    def test_rejects_unknown_output_in_gate(self):
+        raw = self._raw()
+        raw["gate_thresholds"]["verification"]["convergence"][0]["field"] = "nope"
+        self._check(raw)
+
+    def test_rejects_inverted_range(self):
+        raw = self._raw()
+        raw["dataset"]["inputs"][0]["range"] = [4.0, -4.0]
+        self._check(raw)
+
+    def test_rejects_single_repetition(self):
+        raw = self._raw()
+        raw["test_configurations"]["verification"]["numerical_error"]["sets"] = 1
+        self._check(raw)
+
+    def test_rejects_non_comparison_validation_metric(self):
+        raw = self._raw()
+        raw["gate_thresholds"]["validation"][0]["metric"] = "OutOfRangeCount"
+        self._check(raw)
+
+
+class TestConvergenceSeed(unittest.TestCase):
+    def test_seed_changes_subsets(self):
+        from vv4ml.verification import run_convergence_test
+
+        rng = np.random.default_rng(1)
+        x = pd.DataFrame(rng.normal(size=(400, 3)), columns=list("abc"))
+        y = pd.Series(2.0 + x["a"] + 0.1 * rng.normal(size=400))
+        ref = LinearRegression().fit(x, y).predict(x)
+        kw = dict(x_train=x, y_train=y, x_eval=x, ref_predictions=ref, model_type="LinearRegressor",
+                  best_params={}, n_rows=[20, 50], threshold=0.05, metric="MeanRelativeError")
+        a = run_convergence_test(**kw, random_state=1).errors
+        b = run_convergence_test(**kw, random_state=1).errors
+        c = run_convergence_test(**kw, random_state=2).errors
+        self.assertEqual(a, b)
+        self.assertNotEqual(a, c)
+
+
 if __name__ == "__main__":
     unittest.main()

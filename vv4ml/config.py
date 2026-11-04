@@ -42,6 +42,13 @@ class InputField(BaseModel):
             return (v[0], v[1])
         return v  # type: ignore[return-value]
 
+    @field_validator("range")
+    @classmethod
+    def check_range(cls, v: tuple[float, float]) -> tuple[float, float]:
+        if not v[0] < v[1]:
+            raise ValueError(f"range lower bound must be < upper bound, got {v}")
+        return v
+
 
 class OutputField(BaseModel):
     """Output field specification."""
@@ -129,7 +136,14 @@ class GateThresholds(BaseModel):
 class ConvergenceTestConfig(BaseModel):
     """Convergence test configuration."""
 
-    n_rows: list[int]
+    n_rows: list[int] = Field(min_length=1)
+
+    @field_validator("n_rows")
+    @classmethod
+    def check_rows(cls, v: list[int]) -> list[int]:
+        if any(n <= 0 for n in v):
+            raise ValueError("training-set sizes must be positive")
+        return sorted(v)
 
 
 class ExistenceTestConfig(BaseModel):
@@ -157,14 +171,14 @@ class SmoothnessTestConfig(BaseModel):
     """Smoothness test configuration."""
 
     sample_fraction: float = Field(gt=0, le=1)
-    perturbation_scaled_magnitude: float
+    perturbation_scaled_magnitude: float = Field(gt=0, lt=0.5)
     normalization: Literal["value", "range"] = "value"
 
 
 class NumericalErrorTestConfig(BaseModel):
     """Numerical error test configuration."""
 
-    sets: int
+    sets: int = Field(ge=2)
 
 
 class VerificationTestConfig(BaseModel):
@@ -262,6 +276,25 @@ class Config(BaseModel):
     gate_thresholds: GateThresholds
     test_configurations: TestConfigurations
     model_development: ModelDevelopmentConfig
+
+    @model_validator(mode="after")
+    def check_gate_fields(self) -> "Config":
+        """Gate thresholds must refer to configured outputs; validation gates must
+        use a prediction-comparison metric."""
+        from vv4ml.utils.metrics import METRICS_REGISTRY
+
+        outputs = {o.name for o in self.dataset.outputs}
+        ver = self.gate_thresholds.verification
+        crits = list(self.gate_thresholds.validation)
+        for test in ("convergence", "smoothness", "numerical_error", "existence"):
+            crits += getattr(ver, test)
+        for c in crits:
+            if c.field not in outputs:
+                raise ValueError(f"gate threshold refers to unknown output {c.field!r}")
+        for c in self.gate_thresholds.validation:
+            if c.metric not in METRICS_REGISTRY:
+                raise ValueError(f"metric {c.metric!r} cannot be used for validation")
+        return self
 
     @classmethod
     def from_yaml(cls, path: str | Path) -> "Config":

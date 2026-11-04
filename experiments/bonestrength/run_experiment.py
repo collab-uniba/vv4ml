@@ -331,13 +331,11 @@ def stage_verify(cfg, X, Y, out: Path, n_seeds: int, select: str | None = None):
         ref = np.asarray(model.predict(D)).ravel()
         curves = []
         for s in range(n_seeds):
-            from vv4ml.verification import convergence as conv_mod
-
-            errs = conv_mod._error_handle(
+            r = run_convergence_test(
                 X.iloc[tr], Y[output].iloc[tr], D, ref, best.model, params,
-                sorted(conv_cfg.n_rows), metric=vv4ml.METRICS_REGISTRY[cgate.metric], random_state=SEED + s,
+                sorted(conv_cfg.n_rows), cgate.value, cgate.metric, random_state=SEED + s,
             )
-            curves += [{"seed": SEED + s, "n_rows": n, "error": e} for n, e in zip(sorted(conv_cfg.n_rows), errs)]
+            curves += [{"seed": SEED + s, "n_rows": n, "error": e} for n, e in zip(r.n_rows_tested, r.errors)]
         odir.mkdir(parents=True, exist_ok=True)
         pd.DataFrame(curves).to_csv(odir / "convergence_curves.csv", index=False)
 
