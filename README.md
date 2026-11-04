@@ -20,7 +20,7 @@ In particular:
 
 ## Get started
 
-Refer to the [Read the Docs guide here]() where you will find everything you need.
+Refer to the [Read the Docs guide here](https://vv4ml.readthedocs.io/en/latest/) where you will find everything you need.
 
 For a general overlook check the [index](docs/index.md).
 
