@@ -3,7 +3,7 @@ name = "vv4ml"
 version = "1.0.4"
 requires-python = ">=3.12"
 authors = [
-    { name = "COLLAB", email = "collab@gmail.com" }
+    { name = "Collab", email = "cdglab@gmail.com" }
 ]
 description = "A solid verification and validation python library for ml models"
 readme = "README.md"
