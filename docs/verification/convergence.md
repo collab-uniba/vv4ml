@@ -12,7 +12,8 @@ evaluation metrics.
 
 Given a list of dataset sizes $[N_1, N_2, \dots, N_k]$ configured via YAML, VV4ML:
 
-1. Randomly Subsamples the training dataset.
+1. Randomly Subsamples the training dataset (the sampling is seeded by `random_state`, default `42`, which is also 
+used as the seed of the refitted models).
 2. Trains the chosen model architecture on each subset.
 3. Computes the target metric (e.g., `MeanRelativeError` or `MaxAbsoluteError`) for each step.
 4. Find the minimum k at which convergence is observed.
@@ -56,7 +57,8 @@ result = run_convergence_test(
     best_params=your_model_best_parameters,
     n_rows=[500, 1000, 2500],
     threshold=0.01,
-    metric=your_metric
+    metric=your_metric,
+    random_state=42             # Optional, defaults to 42
 )
 
 print(f"Convergence Test Passed: {result.passed}")

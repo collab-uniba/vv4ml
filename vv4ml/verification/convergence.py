@@ -105,6 +105,7 @@ def run_convergence_test(
     n_rows: list[int],
     threshold: float,
     metric: MetricName,
+    random_state: int = 42,
 ) -> ConvergenceResult:
     """Run the convergence test for a single output/model combination.
 
@@ -122,6 +123,8 @@ def run_convergence_test(
         n_rows: Sorted list of subset sizes to test.
         threshold: Error threshold for convergence.
         metric: Error metric to be used.
+        random_state: Random seed for reproducibility. It controls both the
+            subset sampling and the seed of the refitted models.
 
     Returns:
         ConvergenceResult with errors per subset size and convergence info.
@@ -139,6 +142,7 @@ def run_convergence_test(
         best_params,
         n_rows,
         metric=error_metric,
+        random_state=random_state,
     )
     min_k, converged = _min_k(errors, n_rows, threshold)
 

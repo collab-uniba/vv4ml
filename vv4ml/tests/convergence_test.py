@@ -1,5 +1,7 @@
 import unittest
-from vv4ml.verification.convergence import _min_k
+from unittest.mock import patch
+
+from vv4ml.verification.convergence import _min_k, run_convergence_test
 
 
 class TestConvergence(unittest.TestCase):
@@ -67,3 +69,33 @@ class TestConvergence(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestRunConvergenceRandomState(unittest.TestCase):
+    """Test that run_convergence_test forwards random_state to the sampling routine"""
+
+    def _run(self, **kwargs):
+        with patch(
+            "vv4ml.verification.convergence._error_handle", return_value=[0.01, 0.01]
+        ) as mock_error_handle:
+            run_convergence_test(
+                x_train=None,  # type: ignore
+                y_train=None,  # type: ignore
+                x_eval=None,  # type: ignore
+                ref_predictions=None,  # type: ignore
+                model_type="any",
+                best_params={},
+                n_rows=[100, 200],
+                threshold=0.1,
+                metric="MeanRelativeError",
+                **kwargs,
+            )
+        return mock_error_handle.call_args.kwargs["random_state"]
+
+    def test_default_random_state(self):
+        """The default seed is 42, preserving the previous behaviour"""
+        self.assertEqual(self._run(), 42)
+
+    def test_custom_random_state_is_forwarded(self):
+        """A custom seed is forwarded to the sampling routine"""
+        self.assertEqual(self._run(random_state=7), 7)
