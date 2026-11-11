@@ -29,6 +29,14 @@ MODEL_REGISTRY: dict[str, type[BaseEstimator]] = {
     "GaussianProcessRegressor": GaussianProcessRegressor,
 }
 
+# Name of the seed parameter for each model that has one
+SEED_PARAM: dict[str, str] = {
+    "RandomForestRegressor": "random_state",
+    "XGBoostRegressor": "random_state",
+    "MLPRegressor": "random_state",
+    "CatBoostRegressor": "random_seed",
+}
+
 # ---------------------------------------------------------------------------
 # GPR kernel registry — maps YAML-safe string names to kernel objects
 # ---------------------------------------------------------------------------
@@ -71,10 +79,9 @@ def recreate_model(
 
     coerced = _coerce_param_types(model_class, best_params)
 
-    if _supports_param(model_class, "random_seed"):
-        coerced["random_seed"] = random_state
-    elif _supports_param(model_class, "random_state"):
-        coerced["random_state"] = random_state
+    seed_param = SEED_PARAM.get(model_type)
+    if seed_param:
+        coerced[seed_param] = random_state
 
     return model_class(**coerced)
 
@@ -161,9 +168,3 @@ def _coerce_param_types(model_class: type, params: dict[str, Any]) -> dict[str, 
         # Fallback: coerce heuristically
         coerced[k] = _coerce_single_value(v)
     return coerced
-
-
-def _supports_param(model_class: type, param_name: str) -> bool:
-    """Check if model class constructor accepts a given parameter."""
-    sig = inspect.signature(model_class.__init__)
-    return param_name in sig.parameters
