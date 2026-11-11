@@ -1,6 +1,6 @@
 [project]
 name = "vv4ml"
-version = "1.0.7"
+version = "1.0.8"
 requires-python = ">=3.11"
 authors = [
     { name = "Collab", email = "cdglab@gmail.com" }
