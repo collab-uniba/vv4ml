@@ -130,10 +130,16 @@ def lh_gen(
     return samples
 
 
+MAXIMIN_MAX_SAMPLES = 10_000
+"""Largest design size for which maximin optimisation is allowed (O(N^2) distances)."""
+
+
 def generate_lhs_samples(
     inputs: list[InputField],
     sample_size: int,
     random_state: int = 42,
+    optimization: Optional[Literal["maximin"]] = None,
+    iter_num: int = 5,
 ) -> pd.DataFrame:
     """Generate LHS samples scaled to the configured input ranges.
 
@@ -145,14 +151,36 @@ def generate_lhs_samples(
         Number of sample points to generate.
     random_state : int, default 42
         Seed for the random number generator.
+    optimization : {"maximin"}, optional
+        Optional optimisation of the design. Maximin requires all pairwise
+        distances and is therefore limited to ``MAXIMIN_MAX_SAMPLES`` points.
+    iter_num : int, default 5
+        Number of candidate designs compared by the maximin criterion.
 
     Returns
     -------
     Pandas DataFrame with `sample_size` rows and one column per input field,
         values scaled to each field's configured range.
+
+    Raises
+    ------
+    ValueError
+        If maximin optimisation is requested for more than
+        ``MAXIMIN_MAX_SAMPLES`` points.
     """
+    if optimization == "maximin" and sample_size > MAXIMIN_MAX_SAMPLES:
+        raise ValueError(
+            f"maximin optimisation requires O(N^2) pairwise distances and is limited "
+            f"to {MAXIMIN_MAX_SAMPLES} samples (requested {sample_size})"
+        )
     rand_gen = np.random.default_rng(random_state)
-    samples = lh_gen(par_num=len(inputs), sample_size=sample_size, rand_gen=rand_gen)
+    samples = lh_gen(
+        par_num=len(inputs),
+        sample_size=sample_size,
+        optimization=optimization,
+        iter_num=iter_num,
+        rand_gen=rand_gen,
+    )
 
     # Scale each column from [0, 1] to the input field's range
     for i, field in enumerate(inputs):

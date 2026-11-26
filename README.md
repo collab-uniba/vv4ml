@@ -12,7 +12,8 @@ It offers tools for performing tests that assess credibility.
 
 In particular:
 
-- Fundamental verification tests: that's to say `convergence`, `smoothness` and `numerical error` test) which handle the credibility of your model
+- Verification tests: `existence`, `convergence`, `numerical error` and `smoothness`, plus a `validation` test, with acceptance thresholds declared in the configuration
+- A single configuration-driven entry point, `run_verification`, that runs all configured tests for an output and returns a serialisable report
 - A useful Latin hypercube sampling method: it has available a `base` and `maximin` optimization method
 - Different metrics: `MeanRelativeError`, `MeanAbsoluteError`, `MaximumRelativeError`, `MaximumAbsoluteError`
 - YAML parser and loader: a convenient configuration file parser and loader for your model card document
@@ -41,4 +42,4 @@ TBA
 
 ## License
 
-TBA
+vv4ml is released under the [Apache License 2.0](LICENSE).

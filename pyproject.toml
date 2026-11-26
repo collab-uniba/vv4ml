@@ -1,12 +1,14 @@
 [project]
 name = "vv4ml"
-version = "1.0.8"
+version = "1.1.0"
 requires-python = ">=3.11"
 authors = [
     { name = "Collab", email = "cdglab@gmail.com" }
 ]
 description = "A solid verification and validation python library for ml models"
 readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",

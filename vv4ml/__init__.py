@@ -1,8 +1,9 @@
-from vv4ml import config, utils, verification
+from vv4ml import config, utils, validation, verification
 from vv4ml.config import (
     Config,
     ConvergenceTestConfig,
     DatasetConfig,
+    EvaluationDatasetConfig,
     ExistenceTestConfig,
     FormatMetadata,
     GateThresholds,
@@ -31,9 +32,15 @@ from vv4ml.utils import (
     METRICS_REGISTRY,
     recreate_model,
 )
+from vv4ml.validation import ValidationResult, run_validation_test
 from vv4ml.verification import (
     ConvergenceResult,
+    ExistenceResult,
     NumericalErrorResult,
+    VerificationReport,
+    build_evaluation_dataset,
+    run_existence_test,
+    run_verification,
     SmoothnessResult,
     generate_lhs_samples,
     run_convergence_test,
@@ -45,6 +52,15 @@ __all__ = [
     "config",
     "utils",
     "verification",
+    "validation",
+    "ValidationResult",
+    "run_validation_test",
+    "ExistenceResult",
+    "run_existence_test",
+    "VerificationReport",
+    "build_evaluation_dataset",
+    "run_verification",
+    "EvaluationDatasetConfig",
     "FormatMetadata",
     "InputField",
     "OutputField",

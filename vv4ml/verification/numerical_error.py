@@ -16,6 +16,10 @@ class NumericalErrorResult(Result):
     max_variance: float
     repetitions: int
     threshold: float
+    training_size: int = 0
+    std_quantiles: dict[str, float] | None = None
+    """Distribution of the point-wise standard deviation over the evaluation set
+    (keys: ``mean``, ``p50``, ``p95``, ``p99``, ``max``)."""
 
 
 def _max_std_dev_along_axis(a: np.ndarray) -> float:
@@ -74,10 +78,19 @@ def run_numerical_error_test(
         y_subset_1d = np.asarray(y_subset).ravel()
         fresh_model = recreate_model(model_type, best_params, random_state)
         fresh_model.fit(x_subset, y_subset_1d)
-        subset_predictions = fresh_model.predict(x_eval)
+        subset_predictions = np.asarray(fresh_model.predict(x_eval)).ravel()
         predictions.append(subset_predictions)
 
-    max_variance = _max_std_dev_along_axis(np.array(predictions))
+    pred_arr = np.array(predictions)
+    max_variance = float(_max_std_dev_along_axis(pred_arr))
+    point_std = np.std(pred_arr, ddof=1, axis=0)
+    std_quantiles = {
+        "mean": float(np.mean(point_std)),
+        "p50": float(np.quantile(point_std, 0.50)),
+        "p95": float(np.quantile(point_std, 0.95)),
+        "p99": float(np.quantile(point_std, 0.99)),
+        "max": max_variance,
+    }
     passed = max_variance <= threshold
 
     return NumericalErrorResult(
@@ -85,4 +98,6 @@ def run_numerical_error_test(
         threshold=threshold,
         max_variance=max_variance,
         repetitions=n_repetitions,
+        training_size=convergence_rows,
+        std_quantiles=std_quantiles,
     )
