@@ -42,6 +42,7 @@ def _error_handle(
     """
 
     rng = np.random.default_rng(random_state)
+    ref_predictions = np.asarray(ref_predictions).ravel()
     errors: list[float] = []
 
     for k in n_rows:
@@ -55,7 +56,7 @@ def _error_handle(
         fresh_model.fit(x_subset, y_subset)
 
         # Predict on evaluation set and compute MRE
-        subset_predictions = fresh_model.predict(x_eval)
+        subset_predictions = np.asarray(fresh_model.predict(x_eval)).ravel()
         errors.append(metric(subset_predictions, ref_predictions))
 
     return errors

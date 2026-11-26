@@ -150,12 +150,35 @@ MetricName = Literal[
     "PercentageRMSE",
     "StandardDeviation",
     "MaxStandardDeviation",
+    "MaximumRelativeErrorRatio",
+    "OutOfRangeCount",
 ]
-"""Names accepted by the public metric registry and configuration models."""
+"""Names accepted by the public metric registry and configuration models.
+
+``MaximumRelativeErrorRatio`` (smoothness) and ``OutOfRangeCount`` (existence) are
+test-specific statistics computed inside their verification procedures; they are
+accepted in gate thresholds but are not pairwise prediction-comparison metrics and
+are therefore not part of ``METRICS_REGISTRY``.
+"""
+
+TEST_METRICS: dict[str, tuple[MetricName, ...]] = {
+    "convergence": (
+        "MeanRelativeError",
+        "MaximumRelativeError",
+        "MeanAbsoluteError",
+        "MaximumAbsoluteError",
+        "RMSE",
+        "PercentageRMSE",
+    ),
+    "numerical_error": ("MaxStandardDeviation",),
+    "smoothness": ("MaximumRelativeErrorRatio",),
+    "existence": ("OutOfRangeCount",),
+}
+"""Gate metrics each verification test can evaluate."""
 
 # This dictionary maps the available metrics strings directly
 # to their respective mathematical functions.
-METRICS_REGISTRY: dict[MetricName, Callable[[ArrayLike, ArrayLike], float]] = {
+METRICS_REGISTRY: dict[str, Callable[[ArrayLike, ArrayLike], float]] = {
     "MeanRelativeError": mean_relative_error,
     "MaximumRelativeError": max_relative_error,
     "MeanAbsoluteError": mean_absolute_error,
